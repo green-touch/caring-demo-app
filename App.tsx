@@ -17,7 +17,6 @@ import {
   Text,
   useColorScheme,
   View,
-  NativeEventEmitter,
   NativeModules,
 } from 'react-native';
 
@@ -28,6 +27,8 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
+import DeviceInfo from 'react-native-device-info';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -51,25 +52,34 @@ function Section({ children, title }: SectionProps): React.JSX.Element {
   );
 }
 
+const { ScreenReceiverModule } = NativeModules;
+
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
-  const [screenEvent, setScreenEvent] = useState('No Event');
-
+  const [screenStatus, setScreenStatus] = useState<string | null>(null);
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
   useEffect(() => {
-    const { ScreenReceiver } = NativeModules;
-    const eventEmitter = new NativeEventEmitter(ScreenReceiver);
-    const subscription = eventEmitter.addListener('ScreenEvent', (event) => {
-      console.log(`Screen Event Received: ${event}`);
-      setScreenEvent(event); // Update state based on screen event
-    });
-
-    return () => {
-      subscription.remove();
+    const checkScreenStatus = async () => {
+      try {
+        const isScreenOnNative = await ScreenReceiverModule.isScreenOn();
+        setScreenStatus(isScreenOnNative ? 'ON' : 'OFF');
+      } catch (error) {
+        console.error('Error checking screen status:', error);
+        setScreenStatus('Error');
+      }
     };
+
+    checkScreenStatus();
+
+    // 주기적으로 화면 상태를 확인
+    const interval = setInterval(() => {
+      checkScreenStatus();
+    }, 2000); // 2초 간격
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -80,16 +90,6 @@ function App(): React.JSX.Element {
       />
       <ScrollView contentInsetAdjustmentBehavior="automatic" style={backgroundStyle}>
         <Header />
-        <View style={tw`flex-1 items-center justify-center`}>
-          {/* Dynamic UI based on screen state */}
-          {screenEvent === 'SCREEN_OFF' ? (
-            <Text style={tw`text-2xl font-bold text-red-500 mt-4`}>Screen is OFF</Text>
-          ) : screenEvent === 'SCREEN_ON' ? (
-            <Text style={tw`text-2xl font-bold text-green-500 mt-4`}>Screen is ON</Text>
-          ) : (
-            <Text style={tw`text-lg text-gray-600 mt-4`}>Waiting for Screen Event...</Text>
-          )}
-        </View>
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,

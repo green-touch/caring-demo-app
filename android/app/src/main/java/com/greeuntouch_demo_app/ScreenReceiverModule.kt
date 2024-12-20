@@ -1,55 +1,26 @@
-package com.greentouch_demo_app;
+package com.greentouch_admin_app
 
-import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
-import android.util.Log
+import android.os.PowerManager
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
-import com.facebook.react.modules.core.DeviceEventManagerModule
+import com.facebook.react.bridge.Promise
 
-class ScreenReceiverModule(reactContext: ReactApplicationContext) :
-    ReactContextBaseJavaModule(reactContext) {
-
-    private val TAG = "ScreenReceiver"
-    private val reactContext: ReactApplicationContext = reactContext
+class ScreenReceiverModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
 
     override fun getName(): String {
-        return "ScreenReceiverModule"
+        return "ScreenReceiverModule" // JS에서 사용할 모듈 이름
     }
 
-    init {
-        registerScreenReceiver()
-    }
-
-    private fun sendEvent(eventName: String, eventData: String) {
-        reactContext
-            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
-            .emit(eventName, eventData)
-    }
-
-    private fun registerScreenReceiver() {
-        val screenReceiver = object : BroadcastReceiver() {
-            override fun onReceive(context: Context?, intent: Intent?) {
-                when (intent?.action) {
-                    Intent.ACTION_SCREEN_ON -> {
-                        Log.d(TAG, "Screen ON")
-                        sendEvent("onScreenChange", "SCREEN_ON")
-                    }
-                    Intent.ACTION_SCREEN_OFF -> {
-                        Log.d(TAG, "Screen OFF")
-                        sendEvent("onScreenChange", "SCREEN_OFF")
-                    }
-                }
-            }
+    @ReactMethod
+    fun isScreenOn(promise: Promise) {
+        try {
+            val powerManager = reactApplicationContext.getSystemService(Context.POWER_SERVICE) as PowerManager
+            val isInteractive = powerManager.isInteractive
+            promise.resolve(isInteractive) // JS로 true/false 반환
+        } catch (e: Exception) {
+            promise.reject("POWER_MANAGER_ERROR", "Failed to check screen status", e)
         }
-
-        val filter = IntentFilter().apply {
-            addAction(Intent.ACTION_SCREEN_ON)
-            addAction(Intent.ACTION_SCREEN_OFF)
-        }
-        reactContext.registerReceiver(screenReceiver, filter)
     }
 }
