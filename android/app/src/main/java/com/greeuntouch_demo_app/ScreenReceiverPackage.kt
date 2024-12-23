@@ -1,4 +1,4 @@
-package com.greentouch_admin_app
+package com.greeuntouch_demo_app
 
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule

@@ -65,6 +65,7 @@ function App(): React.JSX.Element {
     const checkScreenStatus = async () => {
       try {
         const isScreenOnNative = await ScreenReceiverModule.isScreenOn();
+        console.log(isScreenOnNative);
         setScreenStatus(isScreenOnNative ? 'ON' : 'OFF');
       } catch (error) {
         console.error('Error checking screen status:', error);
