@@ -52,11 +52,12 @@ function Section({ children, title }: SectionProps): React.JSX.Element {
   );
 }
 
-const { ScreenReceiverModule } = NativeModules;
+const { ScreenReceiverModule ,BatteryModule} = NativeModules;
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   const [screenStatus, setScreenStatus] = useState<string | null>(null);
+  const [batteryLevel, setBatteryLevel]= useState<string | null>(null);
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
@@ -78,7 +79,27 @@ function App(): React.JSX.Element {
     // 주기적으로 화면 상태를 확인
     const interval = setInterval(() => {
       checkScreenStatus();
-    }, 2000); // 2초 간격
+    }, 10000); // 2초 간격
+
+    return () => clearInterval(interval);
+  }, []);
+
+
+  
+   // 배터리 퍼센트 가져오기
+   useEffect(() => {
+    const fetchBatteryLevel = async () => {
+      try {
+        const level = await BatteryModule.getBatteryLevel();
+        setBatteryLevel(`${level.toFixed(0)}%`);
+      } catch (error) {
+        console.error('Error fetching battery level:', error);
+        setBatteryLevel('Error');
+      }
+    };
+
+    fetchBatteryLevel();
+    const interval = setInterval(fetchBatteryLevel, 5000); // 5초마다 업데이트
 
     return () => clearInterval(interval);
   }, []);
@@ -113,6 +134,16 @@ function App(): React.JSX.Element {
             <DebugInstructions />
           </Section>
           <Section title="Learn More">Read the docs to discover what to do next:</Section>
+          <Section title="Battery Level">
+          {batteryLevel ? (
+            <Text style={tw`text-xl font-bold text-green-600`}>
+              Battery Level: {batteryLevel}
+            </Text>
+          ) : (
+            <Text style={tw`text-xl text-red-600`}>Loading battery level...</Text>
+          )}
+        </Section>
+
           <LearnMoreLinks />
         </View>
       </ScrollView>
