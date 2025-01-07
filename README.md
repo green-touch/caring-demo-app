@@ -3,6 +3,9 @@
 ## 기술 스택
 
 - **언어**: TypeScript
+- **모바잉 애플리케이션 프레임워크**: React Native
+- **CSS 프레임워크**: Tailwind CSS
+- **상태 관리**: zustand
 
 ---
 
