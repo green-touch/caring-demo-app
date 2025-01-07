@@ -35,11 +35,11 @@ demo-app 레포지토리는 develop 브랜치가 없음. main과 develop 브랜�
   - Checkout locally 선택
     ![Untitled](https://github.com/user-attachments/assets/0a536f80-7342-44c8-9d4e-b8c6e841e36e)
 - 브랜치 작업 명령어 복사 후, 터미널에서 작업
+  ![Untitled (1)](https://github.com/user-attachments/assets/f79ba9a4-eff1-4c10-9541-073e00e125a0)
 - **주의할 점**
   - **새 브랜치가 뻗어나갈 브랜치에서 브랜치를 만들어줘야 한다는 것**
   - **develop 브랜치가 개발 중심 브랜치**
   - 항상 develop 브랜치와 기능 개발 브랜치(feature/CARE-12)와 같아야 함.
-    ![Untitled (1)](https://github.com/user-attachments/assets/f79ba9a4-eff1-4c10-9541-073e00e125a0)
 
 ### Branch Rule
 
@@ -75,12 +75,15 @@ demo-app 레포지토리는 develop 브랜치가 없음. main과 develop 브랜�
 1. PR을 생성한다.
    - PR 생성 시 내용에 관련 이슈 번호를 꼭 입력한다.
    - **close 키워드** 사용 시 merge 시 자동으로 issue가 닫힌다.
-     ![Untitled (3)](https://github.com/user-attachments/assets/f2f76840-2493-40d0-8159-ec13898a2a59)
+
+![Untitled (3)](https://github.com/user-attachments/assets/f2f76840-2493-40d0-8159-ec13898a2a59)
+
 2. Reviewers에 reviewers를 지정한다.(PM 포함함)
 3. Labels을 지정한다.
 4. 코드 리뷰를 진행한다.
 5. merge 시 **Squash and Merge**를 진행한다.
-   ![Untitled (4)](https://github.com/user-attachments/assets/404724bb-c737-46b6-9769-e68ad6236d32)
+
+![Untitled (4)](https://github.com/user-attachments/assets/404724bb-c737-46b6-9769-e68ad6236d32)
 
 ### [유의사항] merge시 상황에 따른 전략 선택
 
