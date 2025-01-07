@@ -33,17 +33,17 @@ demo-app 레포지토리는 develop 브랜치가 없음. main과 develop 브랜�
   - 브랜치 이름: **업무종류/이슈번호**
   - ex. feature/CARE-? : feature, fix, docs 등등 상황에 맞게 지정
   - Checkout locally 선택
-    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e2f62e73-f32c-4af7-a7d2-7705e9f9082c/044e9c97-31f8-4c5e-9c3b-ca978c1119cb/Untitled.png)
+    ![Untitled](https://github.com/user-attachments/assets/0a536f80-7342-44c8-9d4e-b8c6e841e36e)
 - 브랜치 작업 명령어 복사 후, 터미널에서 작업
 - **주의할 점**
   - **새 브랜치가 뻗어나갈 브랜치에서 브랜치를 만들어줘야 한다는 것**
   - **develop 브랜치가 개발 중심 브랜치**
   - 항상 develop 브랜치와 기능 개발 브랜치(feature/CARE-12)와 같아야 함.
-    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e2f62e73-f32c-4af7-a7d2-7705e9f9082c/2eba993c-6a09-40b3-9f41-2ff1eac3fced/Untitled.png)
+    ![Untitled (1)](https://github.com/user-attachments/assets/f79ba9a4-eff1-4c10-9541-073e00e125a0)
 
 ### Branch Rule
 
-![KakaoTalk_20250107_182656021.jpg](https://prod-files-secure.s3.us-west-2.amazonaws.com/e2f62e73-f32c-4af7-a7d2-7705e9f9082c/27e0c740-cb4a-44ab-b996-5870d2011258/KakaoTalk_20250107_182656021.jpg)
+![KakaoTalk_20250107_182656021](https://github.com/user-attachments/assets/ca691855-0851-41d6-bdcf-a04209bcfe1f)
 
 1. **main** 브랜치에서 시작
 2. 동일한 브랜치를 **develop**에도 생성 후 개발자들이 **develop** 브랜치에서 개발을 진행
@@ -75,12 +75,12 @@ demo-app 레포지토리는 develop 브랜치가 없음. main과 develop 브랜�
 1. PR을 생성한다.
    - PR 생성 시 내용에 관련 이슈 번호를 꼭 입력한다.
    - **close 키워드** 사용 시 merge 시 자동으로 issue가 닫힌다.
-     ![Untitled (3).png](<https://prod-files-secure.s3.us-west-2.amazonaws.com/e2f62e73-f32c-4af7-a7d2-7705e9f9082c/289ebe6a-cc1d-4400-9582-80b9382a2f30/Untitled_(3).png>)
+     ![Untitled (3)](https://github.com/user-attachments/assets/f2f76840-2493-40d0-8159-ec13898a2a59)
 2. Reviewers에 reviewers를 지정한다.(PM 포함함)
 3. Labels을 지정한다.
 4. 코드 리뷰를 진행한다.
 5. merge 시 **Squash and Merge**를 진행한다.
-   ![Untitled (4).png](<https://prod-files-secure.s3.us-west-2.amazonaws.com/e2f62e73-f32c-4af7-a7d2-7705e9f9082c/3ee9f94b-25de-4f52-99a8-e154a82252b8/Untitled_(4).png>)
+   ![Untitled (4)](https://github.com/user-attachments/assets/404724bb-c737-46b6-9769-e68ad6236d32)
 
 ### [유의사항] merge시 상황에 따른 전략 선택
 
