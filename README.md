@@ -1,79 +1,91 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Caring
 
-# Getting Started
+## 기술 스택
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+- **언어**: TypeScript
 
-## Step 1: Start the Metro Server
+---
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+## 프로세스
 
-To start Metro, run the following command from the _root_ of your React Native project:
+0. **caring-?-? 레포지토리 Fork**
+1. **Jira 확인 및 변경**: 담당 이슈 확인 후, 이슈 번호 및 세부 내용 파악 후 스프린트 배정 및 워크플로 *진행 중*으로 변경
+2. **Github 이슈 생성**: 이슈 생성 후 브랜치 생성
+3. **해당 브랜치에 PR 및 Merge(개발 중)**: 개인 레포지토리에서 개발 후, 해당 브랜치에 Merge (PR rules & Template 미적용)
+4. **develop 브랜치 PR 생성 및 리뷰(개발 후)**: 해당 기능 개발 완료 후, Main 브랜치에 PR 생성 (PR rules & Template 적용)
+5. **develop Merge(리뷰 해결 후)**: 팀원의 리뷰들 해결 후, approve 후에 Merge
 
-```bash
-# using npm
-npm start
+**주의할 점: 개발 중 develop 브랜치와 다를 수 있기에 개발 시작 전, `git pull` 을 항상 할 것**
+demo-app 레포지토리는 develop 브랜치가 없음. main과 develop 브랜치가 동일 기능
 
-# OR using Yarn
-yarn start
-```
+## Git Branch 전략
 
-## Step 2: Start your Application
+### Issue 생성
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+![image](https://github.com/user-attachments/assets/c903eb5f-569a-4dec-b29e-3fcdcdbb90f0)
 
-### For Android
+- 이슈 템플릿 지정
+  ![image](https://github.com/user-attachments/assets/cfe0a2a2-7cb1-4469-adf1-50ec692da909)
+- 이슈 템플릿 작성, 할당자, 라벨 등록 (개발 예상 계획을 수립, 이슈 이름: [CARE-?] 해당 기능 설명)
+  ![image](https://github.com/user-attachments/assets/9688c3e4-fcb5-4f0a-85b7-f88d1ca2ec6e)
+- 브랜치 생성
+  - 저 동그라미(Create a branch)를 통해 브랜치를 만들어주세요!
+  - 브랜치 이름: **업무종류/이슈번호**
+  - ex. feature/CARE-? : feature, fix, docs 등등 상황에 맞게 지정
+  - Checkout locally 선택
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e2f62e73-f32c-4af7-a7d2-7705e9f9082c/044e9c97-31f8-4c5e-9c3b-ca978c1119cb/Untitled.png)
+- 브랜치 작업 명령어 복사 후, 터미널에서 작업
+- **주의할 점**
+  - **새 브랜치가 뻗어나갈 브랜치에서 브랜치를 만들어줘야 한다는 것**
+  - **develop 브랜치가 개발 중심 브랜치**
+  - 항상 develop 브랜치와 기능 개발 브랜치(feature/CARE-12)와 같아야 함.
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e2f62e73-f32c-4af7-a7d2-7705e9f9082c/2eba993c-6a09-40b3-9f41-2ff1eac3fced/Untitled.png)
 
-```bash
-# using npm
-npm run android
+### Branch Rule
 
-# OR using Yarn
-yarn android
-```
+![KakaoTalk_20250107_182656021.jpg](https://prod-files-secure.s3.us-west-2.amazonaws.com/e2f62e73-f32c-4af7-a7d2-7705e9f9082c/27e0c740-cb4a-44ab-b996-5870d2011258/KakaoTalk_20250107_182656021.jpg)
 
-### For iOS
+1. **main** 브랜치에서 시작
+2. 동일한 브랜치를 **develop**에도 생성 후 개발자들이 **develop** 브랜치에서 개발을 진행
+3. 기능 개발이 필요한 경우 **develop 브랜치에서 feature 브랜치 생성** 후 기능 구현
+   - (참고) 원격 저장소의 branch 가져오기: `git checkout -t origin/develop`
+   - 방법: `git checkout -b <생성할 브랜치 이름> <분기할 브랜치 이름>`
+     - 예) `git checkout -b feature/login develop`
+   - branch 이름 규칙
+     - `해당 작업 유형/작업 이름` ex) feature/login
+     - feature : 새로운 기능 개발
+     - fix : 버그 수정
+     - refactor : 리팩토링
+     - docs : 문서수정
+     - chore : 빌드 업무 수정, 패키지 매니저 수정 등
+     - test : 테스트 코드
+4. 완료된 feature/CARE-? 브랜치는 PR을 거쳐 **develop 브랜치에 merge**
+5. 모든 기능 개발이 완료되면 develop 브랜치로부터 release 브랜치로 merge
+6. 배포 진행
+7. 배포 후 미처 발견하지 못한 버그 발생 시 hotfixes 브랜치를 만들어 긴급 수정 후 main 브랜치에 merge 및 배포 (PR rules 미작용으로 신중하게 사용 권장)
 
-```bash
-# using npm
-npm run ios
+### Commit Rule
 
-# OR using Yarn
-yarn ios
-```
+- **커밋 메시지만 봐도 내용을 알 수 있게 적어야 한다.**
+- 작업은 다음의 규칙에 따라 구분한다.
+- `[코드 번호]: 작업 내용` ex) [CARE-12]: 아이디 포함 각 항목 정규식 구현
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+### Pull Request Rule
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+1. PR을 생성한다.
+   - PR 생성 시 내용에 관련 이슈 번호를 꼭 입력한다.
+   - **close 키워드** 사용 시 merge 시 자동으로 issue가 닫힌다.
+     ![Untitled (3).png](<https://prod-files-secure.s3.us-west-2.amazonaws.com/e2f62e73-f32c-4af7-a7d2-7705e9f9082c/289ebe6a-cc1d-4400-9582-80b9382a2f30/Untitled_(3).png>)
+2. Reviewers에 reviewers를 지정한다.(PM 포함함)
+3. Labels을 지정한다.
+4. 코드 리뷰를 진행한다.
+5. merge 시 **Squash and Merge**를 진행한다.
+   ![Untitled (4).png](<https://prod-files-secure.s3.us-west-2.amazonaws.com/e2f62e73-f32c-4af7-a7d2-7705e9f9082c/3ee9f94b-25de-4f52-99a8-e154a82252b8/Untitled_(4).png>)
 
-## Step 3: Modifying your App
+### [유의사항] merge시 상황에 따른 전략 선택
 
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- **feature → develop Merge 시 Squash and Merge**가 유용하다**.**
+  feature 브랜치에서 기능을 개발하기 위한 지저분한 커밋 내역을 하나의 커밋으로 묶어 develop 브랜치에 병합하면서, develop에는 기능 단위로 커밋이 추가되도록 정리할 수 있다.
+  또한 feature 브랜치는 develop 브랜치에 병합 후 제거되므로, Merge Commit을 남길 필요가 없다.
+- **develop → main Merge 시에는 Rebase And Merge**가 적합하다.
+  main 브랜치는 지금까지 작업한 모든 기능을 배포할 때 병합한다. develop 브랜치를 Squash and Merge하게 되면 커밋 이력이 모두 사라져, 특정 기능에서 문제가 생겼을 때 롤백할 수 없게 된다. main 브랜치 또한 Merge Commit을 남길 필요가 없다. 따라서 **Rebase And Merge**가 적합하다.
