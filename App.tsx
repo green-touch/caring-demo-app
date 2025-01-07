@@ -27,8 +27,8 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import Netinfo, { useNetInfo } from "@react-native-community/netinfo";
 
-import DeviceInfo from 'react-native-device-info';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -62,6 +62,8 @@ function App(): React.JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const netinfo=useNetInfo();
+
   useEffect(() => {
     const checkScreenStatus = async () => {
       try {
@@ -79,7 +81,7 @@ function App(): React.JSX.Element {
     // 주기적으로 화면 상태를 확인
     const interval = setInterval(() => {
       checkScreenStatus();
-    }, 10000); // 2초 간격
+    }, 10000); // 10초 간격
 
     return () => clearInterval(interval);
   }, []);
@@ -134,7 +136,7 @@ function App(): React.JSX.Element {
             <DebugInstructions />
           </Section>
           <Section title="Learn More">Read the docs to discover what to do next:</Section>
-          <Section title="Battery Level">
+          <Section title="Battery Level Test">
           {batteryLevel ? (
             <Text style={tw`text-xl font-bold text-green-600`}>
               Battery Level: {batteryLevel}
@@ -143,7 +145,21 @@ function App(): React.JSX.Element {
             <Text style={tw`text-xl text-red-600`}>Loading battery level...</Text>
           )}
         </Section>
-
+        
+        <Section title="Network Status Test"> 
+            {netinfo ? (
+              <>
+                <Text style={tw`text-lg`}>
+                  Type: {netinfo.type}
+                </Text>
+                <Text style={tw`text-lg`}>
+                  , Connected: {netinfo.isConnected ? 'Connecting...' : 'DisConnecting...'}
+                </Text>
+              </>
+            ) : (
+              <Text style={tw`text-lg text-red-600`}>Checking network status...</Text>
+            )}
+          </Section>
           <LearnMoreLinks />
         </View>
       </ScrollView>
