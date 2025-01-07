@@ -35,7 +35,9 @@ demo-app 레포지토리는 develop 브랜치가 없음. main과 develop 브랜�
   - Checkout locally 선택
     ![Untitled](https://github.com/user-attachments/assets/0a536f80-7342-44c8-9d4e-b8c6e841e36e)
 - 브랜치 작업 명령어 복사 후, 터미널에서 작업
+
   ![Untitled (1)](https://github.com/user-attachments/assets/f79ba9a4-eff1-4c10-9541-073e00e125a0)
+
 - **주의할 점**
   - **새 브랜치가 뻗어나갈 브랜치에서 브랜치를 만들어줘야 한다는 것**
   - **develop 브랜치가 개발 중심 브랜치**
