@@ -13,6 +13,14 @@ class BatteryModule(reactContext: ReactApplicationContext) : ReactContextBaseJav
 
     private val context: Context = reactContext
 
+
+    companion object {
+        const val BATTERY_LEVEL_UNKNOWN = -1 // BatteryManager.EXTRA_LEVEL에서 반환되는 알 수 없는 값
+        const val BATTERY_SCALE_UNKNOWN = -1 // BatteryManager.EXTRA_SCALE에서 반환되는 알 수 없는 값
+        const val BATTERY_SCALE_MAX = 100 // 배터리 퍼센트 계산 기준 값
+    }
+
+
     override fun getName(): String {
         return "BatteryModule"
     }
@@ -23,15 +31,18 @@ class BatteryModule(reactContext: ReactApplicationContext) : ReactContextBaseJav
             val intentFilter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
             val batteryStatus = context.registerReceiver(null, intentFilter)
 
-            val level = batteryStatus?.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) ?: -1
-            val scale = batteryStatus?.getIntExtra(BatteryManager.EXTRA_SCALE, -1) ?: -1
+            // BatteryManager에서 레벨과 스케일 가져오기
+            val level = batteryStatus?.getIntExtra(BatteryManager.EXTRA_LEVEL, BATTERY_LEVEL_UNKNOWN) ?: BATTERY_LEVEL_UNKNOWN
+            val scale = batteryStatus?.getIntExtra(BatteryManager.EXTRA_SCALE, BATTERY_SCALE_UNKNOWN) ?: BATTERY_SCALE_UNKNOWN
 
-            if (level == -1 || scale == -1) {
+            // 레벨이나 스케일이 알 수 없는 값이면 에러 처리
+            if (level == BATTERY_LEVEL_UNKNOWN || scale == BATTERY_SCALE_UNKNOWN) {
                 promise.reject("BATTERY_ERROR", "Unable to get battery level")
                 return
             }
 
-            val batteryPct = level * 100 / scale.toFloat()
+            // 퍼센트 계산
+            val batteryPct = level * BATTERY_SCALE_MAX / scale.toFloat()
             promise.resolve(batteryPct)
         } catch (e: Exception) {
             promise.reject("BATTERY_ERROR", "Error getting battery level: ${e.message}")
