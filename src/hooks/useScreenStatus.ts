@@ -10,7 +10,8 @@ enum ScreenStatus {
 const { ScreenReceiverModule } = NativeModules;
 
 export const useScreenStatus = (): ScreenStatus | null => {
-  const [screenStatus, setScreenStatus] = useState<ScreenStatus | null>(null);
+  const [screenStatus, setScreenStatus] = useState<ScreenStatus>(ScreenStatus.OFF);
+  //기본값 스크린 OFF설정
 
   useEffect(() => {
     const checkScreenStatus = async () => {

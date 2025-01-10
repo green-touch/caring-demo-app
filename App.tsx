@@ -82,23 +82,16 @@ function App(): React.JSX.Element {
           }}
         >
           <Section title="Screen Status">
-            {screenStatus !== null ? (
               <Text style={tw`text-xl font-bold text-blue-600`}>
                 Screen Status: {screenStatus}
               </Text>
-            ) : (
-              <Text style={tw`text-xl text-red-600`}>Loading screen status...</Text>
-            )}
+          
           </Section>
   
           <Section title="Battery Level Test">
-            {batteryLevel ? (
               <Text style={tw`text-xl font-bold text-green-600`}>
                 Battery Level: {batteryLevel}
               </Text>
-            ) : (
-              <Text style={tw`text-xl text-red-600`}>Loading battery level...</Text>
-            )}
           </Section>
   
           <Section title="Network Status Test">

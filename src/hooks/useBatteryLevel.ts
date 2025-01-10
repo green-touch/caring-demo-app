@@ -3,8 +3,9 @@ import { NativeModules } from 'react-native';
 
 const { BatteryModule } = NativeModules;
 
-export const useBatteryLevel = (): string | null => {
-  const [batteryLevel, setBatteryLevel] = useState<string | null>(null);
+export const useBatteryLevel = (): string => {
+  const [batteryLevel, setBatteryLevel] = useState<string>('Loading...');
+  //기본 값 loading 으로 설정
 
   useEffect(() => {
     const fetchBatteryLevel = async () => {
