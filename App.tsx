@@ -5,7 +5,7 @@
  * @format
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect ,useState} from 'react';
 import type { PropsWithChildren } from 'react';
 import './src/styles/global.css';
 import tw from 'tailwind-react-native-classnames';
@@ -17,24 +17,36 @@ import {
   Text,
   useColorScheme,
   View,
-  NativeModules,
 } from 'react-native';
 
 import {
   Colors,
-  DebugInstructions,
   Header,
   LearnMoreLinks,
-  ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import Netinfo, { useNetInfo } from "@react-native-community/netinfo";
+import { useUserStateStore } from './src/store/userStateStore';
 import { useScreenStatus } from './src/hooks/useScreenStatus';
-import { useBatteryLevel } from './src/hooks/useBatteryLevel';
-
-
+import { useBatteryStatus } from './src/hooks/useBatteryStatus';
+import { useNetworkStatus } from './src/hooks/useNetworkStatus';
+import notifee, { AndroidImportance } from '@notifee/react-native';
+import { useCodeNotification } from './src/hooks/useCodeNotification';
+import PopupNotification from './src/test';
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
+
+const registerNotificationChannel = async () => {
+  try {
+    const channelId = await notifee.createChannel({
+      id: 'network-alerts',
+      name: '네트워크 알림',
+      importance: AndroidImportance.HIGH,
+    });
+    console.log(`Notification channel registered: ${channelId}`);
+  } catch (error) {
+    console.error('Error registering notification channel:', error);
+  }
+};
 
 function Section({ children, title }: SectionProps): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -53,20 +65,61 @@ function Section({ children, title }: SectionProps): React.JSX.Element {
     </View>
   );
 }
-
-
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
-  const screenStatus=useScreenStatus();
-  const batteryLevel=useBatteryLevel();
-  const netinfo=useNetInfo();
+  const {
+    batteryStatus,
+    screenStatus,
+    networkConnected,
+    userState,
+    code,
+  } = useUserStateStore();
+
+  // Zustand 상태 업데이트 훅 호출
+  useScreenStatus();
+  useBatteryStatus();
+  useNetworkStatus();
+  useCodeNotification();
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  // 팝업 상태 관리
+  const [popupVisible, setPopupVisible] = useState(false);
+  const [popupData, setPopupData] = useState({ title: '', body: '' });
 
-  
+  // 앱 실행 시 알림 채널 등록
+  useEffect(() => {
+    console.log('Registering notification channel...');
+    registerNotificationChannel();
+  }, []);
+
+  // 팝업 표시 함수
+  const showPopup = (title: string, body: string) => {
+    setPopupData({ title, body });
+    setPopupVisible(true);
+
+    // 3초 후 자동 닫기
+    setTimeout(() => {
+      setPopupVisible(false);
+    }, 3000);
+  };
+
+  // 코드 값에 따라 팝업 표시
+  useEffect(() => {
+    if (code) {
+      console.log('Current code in useCodeNotification:', code);
+
+      if (code === 'BAT-01') {
+        showPopup('배터리 부족 경고', '배터리 잔량이 20% 이하입니다. 충전기를 연결해주세요.');
+      } else if (code === 'BAT-02') {
+        showPopup('배터리 부족 위험', '배터리 잔량이 10% 이하입니다. 즉시 충전해주세요!');
+      } else if (code === 'NET-02') {
+        showPopup('네트워크 경고', '네트워크가 연결되지 않았습니다.');
+      }
+    }
+  }, [code]); // code 값이 변경될 때마다 실행
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -79,42 +132,56 @@ function App(): React.JSX.Element {
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}
-        >
+          }}>
           <Section title="Screen Status">
-              <Text style={tw`text-xl font-bold text-blue-600`}>
-                Screen Status: {screenStatus}
-              </Text>
-          
+            <Text style={tw`text-xl font-bold text-blue-600`}>
+              Screen Status: {screenStatus}
+            </Text>
           </Section>
-  
-          <Section title="Battery Level Test">
-              <Text style={tw`text-xl font-bold text-green-600`}>
-                Battery Level: {batteryLevel}
-              </Text>
+
+          {/* Battery Status */}
+          <Section title="Battery Level">
+            <Text style={tw`text-xl font-bold text-green-600`}>
+              Battery Level: {batteryStatus.level}%
+            </Text>
+            <Text style={tw`text-lg text-gray-600`}>
+              Charging: {batteryStatus.isCharging ? 'Yes' : 'No'}
+            </Text>
           </Section>
-  
-          <Section title="Network Status Test">
-            {netinfo ? (
-              <>
-                <Text style={tw`text-lg`}>
-                  Type: {netinfo.type}
-                </Text>
-                <Text style={tw`text-lg`}>
-                  , Connected: {netinfo.isConnected ? 'Connected' : 'Disconnected'}
-                </Text>
-              </>
-            ) : (
-              <Text style={tw`text-lg text-red-600`}>Checking network status...</Text>
+
+          {/* Network Status */}
+          <Section title="Network Status">
+            <Text style={tw`text-xl font-bold text-red-600`}>
+              Network Connected: {networkConnected ? 'Yes' : 'No'}
+            </Text>
+          </Section>
+
+          {/* User State */}
+          <Section title="User State">
+            <Text style={tw`text-xl font-bold text-purple-600`}>
+              Current User State: {userState}
+            </Text>
+            {code && (
+              <Text style={tw`text-lg text-gray-600`}>
+                , Status Code: {code}
+              </Text>
             )}
           </Section>
-  
+
           <LearnMoreLinks />
         </View>
       </ScrollView>
+
+      {/* 팝업 컴포넌트 */}
+      <PopupNotification
+        title={popupData.title}
+        body={popupData.body}
+        visible={popupVisible}
+        onClose={() => setPopupVisible(false)}
+      />
     </SafeAreaView>
   );
-}  
+}
 
 const styles = StyleSheet.create({
   sectionContainer: {
