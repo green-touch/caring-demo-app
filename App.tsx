@@ -100,27 +100,18 @@ function App(): React.JSX.Element {
     setPopupData({ title, body });
     setPopupVisible(true);
 
-    // 3초 후 자동 닫기
+    // 10초 후 자동 닫기
     setTimeout(() => {
       setPopupVisible(false);
-    }, 3000);
+    }, 10000);
   };
+// Zustand 상태 업데이트 훅 호출
+useScreenStatus();
+useBatteryStatus();
+useNetworkStatus();
 
-  // 코드 값에 따라 팝업 표시
-  useEffect(() => {
-    if (code) {
-      console.log('Current code in useCodeNotification:', code);
-
-      if (code === 'BAT-01') {
-        showPopup('배터리 부족 경고', '배터리 잔량이 20% 이하입니다. 충전기를 연결해주세요.');
-      } else if (code === 'BAT-02') {
-        showPopup('배터리 부족 위험', '배터리 잔량이 10% 이하입니다. 즉시 충전해주세요!');
-      } else if (code === 'NET-02') {
-        showPopup('네트워크 경고', '네트워크가 연결되지 않았습니다.');
-      }
-    }
-  }, [code]); // code 값이 변경될 때마다 실행
-
+// useCodeNotification 훅 호출
+useCodeNotification(showPopup);
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
