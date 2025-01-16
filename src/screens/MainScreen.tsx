@@ -9,8 +9,20 @@ const Tab = createBottomTabNavigator();
 function MainScreen() {
   return (
     <Tab.Navigator initialRouteName="홈">
-      <Tab.Screen name="홈" component={SampleHomeScreen} />
-      <Tab.Screen name="내 정보" component={TestScreen} />
+      <Tab.Screen
+        name="홈"
+        component={SampleHomeScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="내 정보"
+        component={SampleHomeScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Tab.Navigator>
   );
 }

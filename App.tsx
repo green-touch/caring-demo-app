@@ -12,6 +12,9 @@ function App(): React.JSX.Element {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen
+          name="Main"
+          component={MainScreen}
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Test" component={TestScreen} />
         <Stack.Screen
@@ -21,6 +24,9 @@ function App(): React.JSX.Element {
             headerShown: false,
           }}
         />
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Test" component={TestScreen} />
+        <Stack.Screen name="SampleHome" component={SampleHomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

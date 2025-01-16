@@ -18,7 +18,6 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-
 import { Colors, Header } from 'react-native/Libraries/NewAppScreen';
 import Netinfo, { useNetInfo } from '@react-native-community/netinfo';
 import { useBatteryLevel } from '../hooks/useBatteryLevel';

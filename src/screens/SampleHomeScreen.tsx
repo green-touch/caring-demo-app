@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 
 import SvgIcon from '../components/SvgIcon';
-import MainScreen from './MainScreen';
 
 function SampleHomeScreen({ navigation }: any): React.JSX.Element {
   const [welfareCenter, setWelfareCenter] = useState<string>('행복 복지관');
@@ -32,7 +31,7 @@ function SampleHomeScreen({ navigation }: any): React.JSX.Element {
         <View className="flex-column bg-white h-32 border-b border-[#F0F0F0] px-4 justify-evenly">
           <View className="flex-row items-center justify-between">
             <View className="flex-row items-center">
-              {/* <SvgIcon name="MapPin" /> */}
+              <SvgIcon name="MapPin" />
               <Text className="text-sm font-bold text-gray-800">{welfareCenter} </Text>
               <Text className="text-sm font-regular text-gray-800">소속</Text>
             </View>
