@@ -57,7 +57,7 @@ export default function StatusBox({ status }: { status: string }): React.JSX.Ele
               <Text className="text-yellow800 font-bold text-center">5%</Text>
             </View>
           </View>
-          <View className="flex-1 items-center justify-center w-full bg-gray50 mx-auto mb-4 px-3 py-4 rounded-lg">
+          <View className="flex-1 items-center justify-center w-full bg-gray5 mx-auto mb-4 px-3 py-4 rounded-lg">
             <View className="w-8 h-8 mb-2">
               <SvgIcon name="BatteryAlert32" size={32} />
             </View>

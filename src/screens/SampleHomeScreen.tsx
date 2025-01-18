@@ -57,7 +57,7 @@ function SampleHomeScreen({ navigation }: any): React.JSX.Element {
               <Image className="w-full h-full" source={require('../assets/images/img_user.png')} />
             </View>
             <Text className="text-xl font-normal mb-6">{name}</Text>
-            <StatusBox status="danger" />
+            <StatusBox status="" />
             {Platform.select({
               ios: (
                 <TouchableOpacity activeOpacity={0.5} onPress={() => {}} className="mb-6">
