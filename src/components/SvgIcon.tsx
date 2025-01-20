@@ -1,10 +1,9 @@
 import React from 'react';
-import { SvgProps } from 'react-native-svg';
 
 // 직전에 만들었던 아이콘 관리 파일에서 import
-import * as Icons from '../assets/icons/index';
+import * as Icons from '@_assets/icons/index';
 
-import { IconProps } from '../types/icon';
+import { IconProps } from '@_types/icon';
 
 function Icon({ name, size, onPress }: IconProps) {
   const SvgIcon = Icons[name];

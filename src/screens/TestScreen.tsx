@@ -7,7 +7,6 @@
 
 import React, { useEffect, useState } from 'react';
 import type { PropsWithChildren } from 'react';
-import '../styles/global.css';
 import tw from 'tailwind-react-native-classnames';
 import {
   SafeAreaView,
@@ -20,8 +19,8 @@ import {
 } from 'react-native';
 import { Colors, Header } from 'react-native/Libraries/NewAppScreen';
 import Netinfo, { useNetInfo } from '@react-native-community/netinfo';
-import { useBatteryLevel } from '../hooks/useBatteryLevel';
-import { useScreenStatus } from '../hooks/useScreenStatus';
+import { useBatteryLevel } from '@_hooks/useBatteryLevel';
+import { useScreenStatus } from '@_hooks/useScreenStatus';
 
 type SectionProps = PropsWithChildren<{
   title: string;

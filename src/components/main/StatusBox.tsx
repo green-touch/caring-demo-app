@@ -6,8 +6,8 @@ import NetworkStatus from './StatusBoxComponents/NetworkStatus';
 import BatteryStatus from './StatusBoxComponents/BatteryStatus';
 import BatteryAlert from './StatusBoxComponents/BatteryAlert';
 
-import { StatusType } from '../../types/homeScreen';
-import { IconName } from '../../types/icon';
+import { StatusType } from '@_types/homeScreen';
+import { IconName } from '@_types/icon';
 
 function StatusBox({ status }: { status: StatusType }): React.JSX.Element {
   let iconConfig: IconName[] = ['AlertDefault24', 'GlobeOn24', 'BatteryBlack24'];

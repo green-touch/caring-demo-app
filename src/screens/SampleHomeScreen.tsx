@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import '../styles/global.css';
 import { View, Text, SafeAreaView, ScrollView, Image } from 'react-native';
 
-import Header from '../components/main/Header';
-import WhiteBox from '../layout/WhiteBox';
-import StatusBox from '../components/main/StatusBox';
-import CallButton from '../components/main/CallButton';
-import WelfareNew from '../components/main/WelfareNew';
+import Header from '@_components/main/Header';
+import WhiteBox from '@_layouts/WhiteBox';
+import StatusBox from '@_components/main/StatusBox';
+import CallButton from '@_components/main/CallButton';
+import WelfareNew from '@_components/main/WelfareNew';
 
-import { SampleHomeScreenProps } from '../types/bottomBar';
+import { SampleHomeScreenProps } from '@_types/bottomBar';
 
 function SampleHomeScreen({ navigation }: SampleHomeScreenProps): React.JSX.Element {
   const [name, setName] = useState<string>('홍길동');

@@ -1,4 +1,3 @@
-import { StatusType } from './homeScreen';
 import { IconName } from './icon';
 
 export interface StatusDefaultProps {

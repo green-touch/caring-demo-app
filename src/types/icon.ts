@@ -1,5 +1,5 @@
 import { SvgProps } from 'react-native-svg';
-import * as Icons from '../assets/icons/index';
+import * as Icons from '@_assets/icons/index';
 
 export type IconProps = SvgProps & {
   name: keyof typeof Icons; // keyof typeof Icons: Icons 객체의 key들을 union type으로 만들어줌

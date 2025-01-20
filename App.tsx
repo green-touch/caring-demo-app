@@ -2,11 +2,11 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import MainScreen from './src/screens/MainScreen';
-import HomeScreen from './src/screens/HomeScreen';
-import TestScreen from './src/screens/TestScreen';
-import SampleHomeScreen from './src/screens/SampleHomeScreen';
-import MyInfoScreen from './src/screens/MyInfoScreen';
+import MainScreen from '@_screens/MainScreen';
+import HomeScreen from '@_screens/HomeScreen';
+import TestScreen from '@_screens/TestScreen';
+import SampleHomeScreen from '@_screens/SampleHomeScreen';
+import MyInfoScreen from '@_screens/MyInfoScreen';
 
 const Stack = createNativeStackNavigator();
 

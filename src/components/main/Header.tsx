@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Platform, TouchableNativeFeedback } from 'react-native';
 
-import SvgIcon from '../SvgIcon';
+import SvgIcon from '@_components/SvgIcon';
 
 export default function Header(): React.JSX.Element {
   const [welfareCenter, setWelfareCenter] = useState<string>('행복 복지관');

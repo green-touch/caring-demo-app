@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, SafeAreaView } from 'react-native';
+import { View, Button, SafeAreaView } from 'react-native';
 
 function HomeScreen({ navigation }: any): React.JSX.Element {
   return (
