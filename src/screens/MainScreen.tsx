@@ -6,10 +6,11 @@ import tw from 'tailwind-react-native-classnames';
 import SvgIcon from '../components/SvgIcon';
 import SampleHomeScreen from './SampleHomeScreen';
 import MyInfoScreen from './MyInfoScreen';
+import { Touchable, TouchableOpacity } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
-function MainScreen() {
+function MainScreen({ navigation }: any): React.JSX.Element {
   return (
     <Tab.Navigator initialRouteName="홈">
       <Tab.Screen
@@ -30,7 +31,16 @@ function MainScreen() {
         name="내 정보"
         component={MyInfoScreen}
         options={{
-          headerShown: false,
+          headerShown: true,
+          headerTitle: '내 정보',
+          headerTitleStyle: tw`text-lg`,
+          headerTitleAlign: 'center',
+          headerStyle: tw`h-14 border-b border-[#E4E4E4]`,
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => navigation.goBack()} className="ml-2">
+              <SvgIcon name="Back32" size={32} />
+            </TouchableOpacity>
+          ),
           tabBarIcon: ({ focused }) => (
             <SvgIcon name={focused ? 'AccountActive32' : 'AccountDisabled32'} size={32} />
           ),

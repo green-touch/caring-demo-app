@@ -4,11 +4,7 @@ import { SvgProps } from 'react-native-svg';
 // 직전에 만들었던 아이콘 관리 파일에서 import
 import * as Icons from '../assets/icons/index';
 
-type IconProps = SvgProps & {
-  name: keyof typeof Icons; // keyof typeof Icons: Icons 객체의 key들을 union type으로 만들어줌
-  size?: number;
-  onPress?: () => void;
-};
+import { IconProps } from '../types/icon';
 
 function Icon({ name, size, onPress }: IconProps) {
   const SvgIcon = Icons[name];
