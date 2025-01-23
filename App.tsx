@@ -5,7 +5,7 @@
  * @format
  */
 
-import React, { useEffect ,useState} from 'react';
+import React, { useEffect } from 'react';
 import type { PropsWithChildren } from 'react';
 import './src/styles/global.css';
 import tw from 'tailwind-react-native-classnames';
@@ -17,6 +17,9 @@ import {
   Text,
   useColorScheme,
   View,
+  AppState,
+  NativeModules,
+  NativeEventEmitter,
 } from 'react-native';
 
 import {
@@ -28,25 +31,16 @@ import { useUserStateStore } from './src/store/userStateStore';
 import { useScreenStatus } from './src/hooks/useScreenStatus';
 import { useBatteryStatus } from './src/hooks/useBatteryStatus';
 import { useNetworkStatus } from './src/hooks/useNetworkStatus';
-import notifee, { AndroidImportance } from '@notifee/react-native';
 import { useCodeNotification } from './src/hooks/useCodeNotification';
-import PopupNotification from './src/test';
+import { requestNotificationPermission } from './src/services/requestNotificationPermission';
+import { registerNotificationChannel } from './src/services/registerChannel';
+import { startTrackingService,stopTrackingService } from './src/services/TrackingService';
+import { startForegroundService,stopForegroundService } from './src/services/forgroundService';
+const {TrackingServiceModule}= NativeModules;
+import notifee from '@notifee/react-native';
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
-
-const registerNotificationChannel = async () => {
-  try {
-    const channelId = await notifee.createChannel({
-      id: 'network-alerts',
-      name: '네트워크 알림',
-      importance: AndroidImportance.HIGH,
-    });
-    console.log(`Notification channel registered: ${channelId}`);
-  } catch (error) {
-    console.error('Error registering notification channel:', error);
-  }
-};
 
 function Section({ children, title }: SectionProps): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -65,60 +59,82 @@ function Section({ children, title }: SectionProps): React.JSX.Element {
     </View>
   );
 }
+
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
-  const {
-    batteryStatus,
-    screenStatus,
-    networkConnected,
-    userState,
-    code,
-  } = useUserStateStore();
-
-  // Zustand 상태 업데이트 훅 호출
-  useScreenStatus();
-  useBatteryStatus();
-  useNetworkStatus();
-  useCodeNotification();
+  const { batteryStatus, screenStatus, networkConnected, userState, code } =
+    useUserStateStore();
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  // 팝업 상태 관리
-  const [popupVisible, setPopupVisible] = useState(false);
-  const [popupData, setPopupData] = useState({ title: '', body: '' });
-
-  // 앱 실행 시 알림 채널 등록
+  // 초기 설정 (채널 등록 및 권한 요청)
   useEffect(() => {
-    console.log('Registering notification channel...');
-    registerNotificationChannel();
+    const initializeNotifications = async () => {
+      await registerNotificationChannel();
+      await requestNotificationPermission();
+    };
+    initializeNotifications();
   }, []);
 
-  // 팝업 표시 함수
-  const showPopup = (title: string, body: string) => {
-    setPopupData({ title, body });
-    setPopupVisible(true);
+  // 상태 업데이트를 위한 훅 호출
+  useScreenStatus();
+  useBatteryStatus();
+  useNetworkStatus();
 
-    // 10초 후 자동 닫기
-    setTimeout(() => {
-      setPopupVisible(false);
-    }, 10000);
+  useCodeNotification((title, body) => {
+    console.log("알림이 발생했습니다:", title, body); // 추가 작업 처리
+  });
+
+// // NativeEventEmitter 추가
+// useEffect(() => {
+//   const eventEmitter = new NativeEventEmitter(TrackingServiceModule);
+
+//   const subscription = eventEmitter.addListener('onBackgroundUpdate', (data) => {
+//     console.log('Received event from TrackingService:', data);
+//     // 여기서 Zustand 상태 업데이트 또는 추가 작업 수행
+//     const parsedData = JSON.parse(data);
+//     console.log('Parsed data:', parsedData);
+//   });
+
+//   return () => {
+//     subscription.remove(); // 이벤트 리스너 정리
+//   };
+// }, []);
+
+useEffect(() => {
+  const handleAppStateChange = async (nextAppState :string) => {
+    try {
+      if (nextAppState === 'background') {
+        console.log('앱이 백그라운드로 전환되었습니다.');
+        await startForegroundService();
+      } else if (nextAppState === 'active') {
+        console.log('앱이 포그라운드로 전환되었습니다.');
+        await notifee.stopForegroundService();
+      }
+    } catch (error) {
+      console.error('AppState change error:', error);
+    }
   };
-// Zustand 상태 업데이트 훅 호출
-useScreenStatus();
-useBatteryStatus();
-useNetworkStatus();
 
-// useCodeNotification 훅 호출
-useCodeNotification(showPopup);
+  const subscription = AppState.addEventListener('change', handleAppStateChange);
+
+  return () => {
+    subscription.remove();
+  };
+}, []);
+
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <ScrollView contentInsetAdjustmentBehavior="automatic" style={backgroundStyle}>
+      <ScrollView
+        contentInsetAdjustmentBehavior="automatic"
+        style={backgroundStyle}>
         <Header />
         <View
           style={{
@@ -162,14 +178,6 @@ useCodeNotification(showPopup);
           <LearnMoreLinks />
         </View>
       </ScrollView>
-
-      {/* 팝업 컴포넌트 */}
-      <PopupNotification
-        title={popupData.title}
-        body={popupData.body}
-        visible={popupVisible}
-        onClose={() => setPopupVisible(false)}
-      />
     </SafeAreaView>
   );
 }
@@ -179,18 +187,10 @@ const styles = StyleSheet.create({
     marginTop: 32,
     paddingHorizontal: 24,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
   sectionDescription: {
     marginTop: 8,
     fontSize: 18,
     fontWeight: '400',
   },
-  highlight: {
-    fontWeight: '700',
-  },
 });
 
-export default App;

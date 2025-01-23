@@ -23,7 +23,7 @@ interface BatteryStatus {
 
 // 상태 전환 임계값
 interface Thresholds {
-  WARNING_BATTERY_THRESHOLD: number;
+  WARNING_BATTERY_THRESHOLD: number; 
   DANGER_BATTERY_THRESHOLD: number;
   WARNING_SCREEN_OFF_TIME: number;
   DANGER_SCREEN_OFF_TIME: number;
@@ -48,7 +48,7 @@ interface UserStateStore {
   updateUserState: () => void; // 사용자 상태 업데이트
 }
 
-// Zustand 전역 상태
+// Zustand 전역 상태 초기값값
 export const useUserStateStore = create<UserStateStore>((set, get) => ({
   batteryStatus: { level: 100, isCharging: false },
   screenStatus: ScreenStatus.ROADING,
@@ -60,8 +60,8 @@ export const useUserStateStore = create<UserStateStore>((set, get) => ({
   thresholds: {
     WARNING_BATTERY_THRESHOLD: 20, // 경고로 전환되는 배터리 값
     DANGER_BATTERY_THRESHOLD: 10, // 위험 배터리 임계값
-    WARNING_SCREEN_OFF_TIME: 60 * 1000, // 1분
-    DANGER_SCREEN_OFF_TIME: 120 * 1000, // 2분
+    WARNING_SCREEN_OFF_TIME: 60 * 1000, // 1분 (임의로 설정, 사용자한테 받아야 하는 값)
+    DANGER_SCREEN_OFF_TIME: 120 * 1000, // 2분(임의로 설정, 사용자한테 받아야 하는 값)
   },
 
   // 배터리 상태 설정
@@ -102,52 +102,53 @@ export const useUserStateStore = create<UserStateStore>((set, get) => ({
       screenOffDuration,
       thresholds,
     } = get();
-
+  
     const {
       WARNING_BATTERY_THRESHOLD,
       DANGER_BATTERY_THRESHOLD,
       WARNING_SCREEN_OFF_TIME,
       DANGER_SCREEN_OFF_TIME,
     } = thresholds;
-
+  
     let newState = UserState.NORMAL;
     let newCode = null; // 상태 코드 초기화
-
-    // ⚠️ 경고 상태 계산
-    if (
-      (!networkConnected) || // 네트워크 연결 끊김
-      (batteryStatus.level < WARNING_BATTERY_THRESHOLD && !batteryStatus.isCharging) || // 배터리 경고
-      (screenStatus === ScreenStatus.OFF && screenOffDuration >= WARNING_SCREEN_OFF_TIME) // 화면 꺼짐 경고
-    ) {
-      newState = UserState.WARNING;
-      if (!networkConnected) {
-        newCode = "NET-02";
+  
+    // ✅ 1. 네트워크 상태 우선 평가
+    if (!networkConnected) {
+      if (batteryStatus.level < DANGER_BATTERY_THRESHOLD || screenOffDuration >= DANGER_SCREEN_OFF_TIME) {
+        newState = UserState.DANGER;
+        newCode = "NET-04"; // 네트워크 위험 끊김
+      } else {
+        newState = UserState.WARNING;
+        newCode = "NET-02"; // 네트워크 연결 끊김
+      }
+    }
+  
+    // ✅ 2. 배터리 상태 평가 (네트워크 연결이 된 경우만)
+    if (!newCode) { // 네트워크 관련 코드가 설정되지 않은 경우
+      if (batteryStatus.level < DANGER_BATTERY_THRESHOLD && !batteryStatus.isCharging) {
+        newState = UserState.DANGER;
+        newCode = "BAT-02"; // 배터리 부족 위험
       } else if (batteryStatus.level < WARNING_BATTERY_THRESHOLD && !batteryStatus.isCharging) {
-        newCode = "BAT-01";
-      } else if (screenStatus === ScreenStatus.OFF && screenOffDuration >= WARNING_SCREEN_OFF_TIME) {
-        newCode = "SCR-01";
+        newState = UserState.WARNING;
+        newCode = "BAT-01"; // 배터리 부족 경고
       }
     }
-
-    // 🚨 위험 상태 계산
-    if (
-      (!networkConnected && (
-        batteryStatus.level < DANGER_BATTERY_THRESHOLD || // 네트워크 끊김과 배터리 위험
-        (screenStatus === ScreenStatus.OFF && screenOffDuration >= DANGER_SCREEN_OFF_TIME) // 화면 꺼짐 위험
-      )) ||
-      (batteryStatus.level < DANGER_BATTERY_THRESHOLD && !batteryStatus.isCharging) ||
-      (screenStatus === ScreenStatus.OFF && screenOffDuration >= DANGER_SCREEN_OFF_TIME)
-    ) {
-      newState = UserState.DANGER;
-      if (!networkConnected) {
-        newCode = "NET-04";
-      } else if (batteryStatus.level < DANGER_BATTERY_THRESHOLD && !batteryStatus.isCharging) {
-        newCode = "BAT-02";
-      } else if (screenStatus === ScreenStatus.OFF && screenOffDuration >= DANGER_SCREEN_OFF_TIME) {
-        newCode = "SCR-02";
+  
+    // ✅ 3. 화면 상태 평가 (네트워크와 배터리 관련 코드가 설정되지 않은 경우만)
+    if (!newCode) {
+      if (screenStatus === ScreenStatus.OFF) {
+        if (screenOffDuration >= DANGER_SCREEN_OFF_TIME) {
+          newState = UserState.DANGER;
+          newCode = "SCR-02"; // 화면 꺼짐 위험
+        } else if (screenOffDuration >= WARNING_SCREEN_OFF_TIME) {
+          newState = UserState.WARNING;
+          newCode = "SCR-01"; // 화면 꺼짐 경고
+        }
       }
     }
-
-    set({ userState: newState, code: newCode }); // 상태 및 코드 업데이트
+  
+    // 최종 상태 업데이트
+    set({ userState: newState, code: newCode });
   },
 }));
