@@ -1,4 +1,4 @@
-package com.greeuntouch_demo_app
+package com.greentouch_demo_app
 
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule

@@ -1,11 +1,10 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.greentouch_demo_app">
 
     <!-- 필수 권한 설정 -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE"/>
 
     <application
         android:name=".MainApplication"
@@ -15,7 +14,7 @@
         android:allowBackup="false"
         android:theme="@style/AppTheme"
         android:supportsRtl="true">
-
+ 
         <!-- 메인 액티비티 -->
         <activity
             android:name=".MainActivity"
@@ -32,16 +31,10 @@
 
         <!-- Notifee Foreground Service -->
         <service
-            android:name="io.invertase.notifee.BackgroundService"
-            android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-
-        <!-- Tracking Service (Foreground Service for Data Sync) -->
-        <service
-            android:name=".TrackingService"
+            android:name=".foregroundService.ForegroundService"
+            android:foregroundServiceType="specialUse"
             android:enabled="true"
-            android:exported="false"
-            android:foregroundServiceType="dataSync" />
+            android:exported="false" />
 
         <!-- Broadcast Receiver -->
         <receiver android:name=".BackgroundTaskReceiver" android:exported="true">

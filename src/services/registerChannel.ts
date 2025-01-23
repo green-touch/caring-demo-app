@@ -8,8 +8,8 @@ export const registerNotificationChannel = async () => {
       importance: AndroidImportance.HIGH, // 중요도 설정
       visibility: AndroidVisibility.PUBLIC, //잠금에서 알림 전체 표시
     });
-    console.log(`Notification channel registered: ${channelId}`);
+    console.log(`알림 채널이 등록: ${channelId}`);
   } catch (error) {
-    console.error("Failed to register notification channel:", error);
+    console.error("알림 채널 등록 실패:", error);
   }
 };

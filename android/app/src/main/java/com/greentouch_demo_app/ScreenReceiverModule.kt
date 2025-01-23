@@ -1,4 +1,4 @@
-package com.greeuntouch_demo_app
+package com.greentouch_demo_app
 
 import android.content.Context
 import android.os.PowerManager
