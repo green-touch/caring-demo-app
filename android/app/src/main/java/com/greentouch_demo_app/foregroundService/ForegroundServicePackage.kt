@@ -1,13 +1,13 @@
-package com.greeuntouch_demo_app
+package com.greentouch_demo_app.foregroundService
 
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.uimanager.ViewManager
 
-class ScreenReceiverPackage : ReactPackage {
+class ForegroundServicePackage : ReactPackage {
     override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> {
-        return listOf(ScreenReceiverModule(reactContext))
+        return listOf(ForegroundServiceModule(reactContext))
     }
 
     override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {

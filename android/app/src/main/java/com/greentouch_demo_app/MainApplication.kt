@@ -1,4 +1,4 @@
-package com.greeuntouch_demo_app
+package com.greentouch_demo_app
 
 import android.app.Application
 import com.facebook.react.PackageList
@@ -11,8 +11,8 @@ import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.react.soloader.OpenSourceMergedSoMapping
 import com.facebook.soloader.SoLoader
-import com.greeuntouch_demo_app.ScreenReceiverPackage
-import com.greeuntouch_demo_app.BatteryPackage;
+
+import com.greentouch_demo_app.foregroundService.ForegroundServicePackage
 class MainApplication : Application(), ReactApplication {
 
   override val reactNativeHost: ReactNativeHost =
@@ -20,8 +20,8 @@ class MainApplication : Application(), ReactApplication {
         override fun getPackages(): List<ReactPackage> =
             PackageList(this).packages.apply {
               // Packages that cannot be autolinked yet can be added manually here, for example:
-              add(ScreenReceiverPackage())
-              add(BatteryPackage())
+           
+              add(ForegroundServicePackage())
             }
 
         override fun getJSMainModuleName(): String = "index"

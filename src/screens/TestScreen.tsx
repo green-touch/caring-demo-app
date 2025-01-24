@@ -1,115 +1,140 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React, { useEffect, useState } from 'react';
-import type { PropsWithChildren } from 'react';
-import tw from 'tailwind-react-native-classnames';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
-  useColorScheme,
   View,
+  NativeModules,
+  NativeEventEmitter,
 } from 'react-native';
-import { Colors, Header } from 'react-native/Libraries/NewAppScreen';
-import Netinfo, { useNetInfo } from '@react-native-community/netinfo';
-import { useBatteryLevel } from '@_hooks/useBatteryLevel';
-import { useScreenStatus } from '@_hooks/useScreenStatus';
+import { useUserStateStore } from '../store/userStateStore'; // Zustand 상태 가져오기
+import type { EmitterSubscription } from 'react-native';
+import { requestNotificationPermission } from '../services/requestNotificationPermission';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+const { ForegroundServiceModule } = NativeModules;
 
-function Section({ children, title }: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  const color = isDarkMode ? Colors.white : Colors.black;
+function TestScreen(): React.JSX.Element {
+  const {
+    batteryStatus,
+    screenStatus,
+    networkConnected,
+    screenOffDuration,
+    userState,
+    code,
+    setBatteryStatus,
+    setScreenStatus,
+    setNetworkConnected,
+    setScreenOffDuration,
+    setUserState,
+  } = useUserStateStore();
+
+  const [wasDisconnected, setWasDisconnected] = useState(false); // 네트워크 연결 상태 추적
+
+  // Foreground Service 자동 시작
+  useEffect(() => {
+    const startForegroundService = async () => {
+      try {
+        await ForegroundServiceModule.startService();
+        console.log('Foreground Service has started!');
+      } catch (error) {
+        console.error('Error starting service:', error);
+      }
+    };
+
+    const stopForegroundService = async () => {
+      try {
+        await ForegroundServiceModule.stopService();
+        console.log('Foreground Service has stopped!');
+      } catch (error) {
+        console.error('Error stopping service:', error);
+      }
+    };
+    requestNotificationPermission();
+    startForegroundService();
+
+    return () => {
+      stopForegroundService();
+    };
+  }, []);
+
+  // 이벤트 리스너 등록 및 재설정..콘솔뜨게해보려고 해본 시도
+  useEffect(() => {
+    const eventEmitter = new NativeEventEmitter(ForegroundServiceModule);
+    let subscription: EmitterSubscription | null = null;
+
+    const setupListener = () => {
+      // 기존 리스너 제거 후 재등록
+      if (subscription) {
+        subscription.remove();
+      }
+
+      subscription = eventEmitter.addListener('UserStateUpdate', (data) => {
+        console.log('UserStateUpdate event received:', data);
+
+        // 상태 업데이트
+        setBatteryStatus(data.batteryLevel, data.isCharging);
+        setScreenStatus(data.screenStatus);
+        setNetworkConnected(data.networkStatus);
+        setScreenOffDuration(data.screenOffDuration);
+        setUserState(data.userState, data.code);
+
+        // 네트워크 상태 변화 로직
+        if (!data.networkStatus) {
+          if (!wasDisconnected) {
+            console.log('Network disconnected, waiting for reconnection...');
+            setWasDisconnected(true);
+          }
+        } else if (wasDisconnected) {
+          console.log('Network reconnected! Resuming console logs...');
+          setWasDisconnected(false);
+        }
+      });
+    };
+
+    setupListener();
+
+    return () => {
+      if (subscription) subscription.remove(); // 컴포넌트 언마운트 시 리스너 제거
+    };
+  }, [
+    setBatteryStatus,
+    setScreenStatus,
+    setNetworkConnected,
+    setScreenOffDuration,
+    setUserState,
+    wasDisconnected,
+  ]);
+
   return (
-    <View style={styles.sectionContainer}>
-      <Text style={tw`text-3xl font-black text-red-600`}>{title}</Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: color,
-          },
-        ]}>
-        {children}
-      </Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Foreground Service Demo</Text>
+      <View style={styles.statusContainer}>
+        <Text>Battery Level: {batteryStatus.level}%</Text>
+        <Text>Charging: {batteryStatus.isCharging ? 'Yes' : 'No'}</Text>
+        <Text>Screen Status: {screenStatus ? 'Yes' : 'No'}</Text>
+        <Text>Network Connected: {networkConnected ? 'Yes' : 'No'}</Text>
+        <Text>Screen Off Duration: {Math.floor(screenOffDuration / 1000)}s</Text>
+        <Text>User State: {userState}</Text>
+        <Text>Code: {code || 'None'}</Text>
+      </View>
     </View>
   );
 }
 
-function TestScreen({ navigation }: any): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  const screenStatus = useScreenStatus();
-  const batteryLevel = useBatteryLevel();
-  const netinfo = useNetInfo();
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView contentInsetAdjustmentBehavior="automatic" style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Screen Status">
-            <Text style={tw`text-xl font-bold text-blue-600`}>Screen Status: {screenStatus}</Text>
-          </Section>
-
-          <Section title="Battery Level Test">
-            <Text style={tw`text-xl font-bold text-green-600`}>Battery Level: {batteryLevel}</Text>
-          </Section>
-
-          <Section title="Network Status Test">
-            {netinfo ? (
-              <>
-                <Text style={tw`text-lg`}>Type: {netinfo.type}</Text>
-                <Text style={tw`text-lg`}>
-                  , Connected: {netinfo.isConnected ? 'Connected' : 'Disconnected'}
-                </Text>
-              </>
-            ) : (
-              <Text style={tw`text-lg text-red-600`}>Checking network status...</Text>
-            )}
-          </Section>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
   },
-  sectionTitle: {
+  title: {
     fontSize: 24,
-    fontWeight: '600',
+    fontWeight: 'bold',
+    marginBottom: 20,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  statusContainer: {
+    marginBottom: 20,
+    alignItems: 'center',
   },
 });
-
 export default TestScreen;
