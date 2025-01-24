@@ -9,7 +9,7 @@ export const sendNotification = async (title: string, body: string) => {
       body,
       android: {
         channelId: "network-alerts",
-       //asForegroundService: true, // 포그라운드 서비스 활성화
+       asForegroundService: true, // 포그라운드 서비스 활성화
         smallIcon: "@drawable/logo_symbol", // 아이콘 설정
         importance: AndroidImportance.HIGH,
         pressAction: {
