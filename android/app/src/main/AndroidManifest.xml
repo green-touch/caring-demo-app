@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
+     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".MainApplication"
@@ -38,7 +38,7 @@
             android:exported="false" />
 
         <!-- Broadcast Receiver -->
-        <receiver android:name=".BackgroundTaskReceiver" android:exported="true">
+        <receiver android:name=".BootReceiver" android:exported="false" android:enabled="true">
             <intent-filter>
                 <!-- 네트워크 상태 변경 이벤트 -->
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />

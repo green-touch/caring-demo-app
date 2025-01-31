@@ -5,7 +5,7 @@ export enum ScreenStatus {
   ON = "ON",
   OFF = "OFF",
   ERROR = "ERROR",
-  ROADING = "ROADING",
+  LOADING = "LOADING",
 }
 
 // 사용자 상태 enum
@@ -41,7 +41,7 @@ interface UserStateStore {
 // Zustand 전역 상태 초기값
 export const useUserStateStore = create<UserStateStore>((set) => ({
   batteryStatus: { level: 100, isCharging: false },
-  screenStatus: ScreenStatus.ROADING,
+  screenStatus: ScreenStatus.LOADING,
   networkConnected: true,
   screenOffDuration: 0,
   userState: UserState.NORMAL,
