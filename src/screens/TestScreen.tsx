@@ -6,7 +6,7 @@ import {
   NativeModules,
   NativeEventEmitter,
 } from 'react-native';
-import { useUserStateStore } from '../store/userStateStore'; // Zustand 상태 가져오기
+import { ScreenStatus, useUserStateStore } from '../store/userStateStore'; // Zustand 상태 가져오기
 import type { EmitterSubscription } from 'react-native';
 import { requestNotificationPermission } from '../services/requestNotificationPermission';
 
@@ -70,12 +70,22 @@ function TestScreen(): React.JSX.Element {
       subscription = eventEmitter.addListener('UserStateUpdate', (data) => {
         console.log('UserStateUpdate event received:', data);
 
-        // 상태 업데이트
-        setBatteryStatus(data.batteryLevel, data.isCharging);
-        setScreenStatus(data.screenStatus);
-        setNetworkConnected(data.networkStatus);
-        setScreenOffDuration(data.screenOffDuration);
-        setUserState(data.userState, data.code);
+        // 상태 업데이트 prevState 활용
+        setBatteryStatus(
+          data.batteryLevel ?? batteryStatus.level,
+          data.isCharging ?? batteryStatus.isCharging
+        );
+  
+        setScreenStatus(data.screenStatus ?? screenStatus);
+  
+        setNetworkConnected(data.networkStatus ?? networkConnected);
+  
+        setScreenOffDuration(data.screenOffDuration ?? screenOffDuration);
+  
+        setUserState(
+          data.userState ?? userState,
+          data.code ?? code
+        );
 
         // 네트워크 상태 변화 로직
         if (!data.networkStatus) {

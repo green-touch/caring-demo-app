@@ -47,19 +47,31 @@ export const useUserStateStore = create<UserStateStore>((set) => ({
   userState: UserState.NORMAL,
   code: null,
 
-  // 배터리 상태 설정
-  setBatteryStatus: (level, isCharging) =>
-    set({ batteryStatus: { level, isCharging } }),
+ // 배터리 상태 설정 (기존 상태를 유지하면서 업데이트)
+ setBatteryStatus: (level, isCharging) =>
+  set((prev) => ({
+    batteryStatus: {
+      level: level ?? prev.batteryStatus.level,
+      isCharging: isCharging ?? prev.batteryStatus.isCharging,
+    },
+  })),
 
-  // 화면 상태 설정
-  setScreenStatus: (status) => set({ screenStatus: status }),
+// 화면 상태 설정
+setScreenStatus: (status) =>
+  set((prev) => ({ screenStatus: status ?? prev.screenStatus })),
 
-  // 네트워크 상태 설정
-  setNetworkConnected: (isConnected) => set({ networkConnected: isConnected }),
+// 네트워크 상태 설정
+setNetworkConnected: (isConnected) =>
+  set((prev) => ({ networkConnected: isConnected ?? prev.networkConnected })),
 
-  // 화면 꺼짐 지속 시간 설정
-  setScreenOffDuration: (duration) => set({ screenOffDuration: duration }),
+// 화면 꺼짐 지속 시간 설정
+setScreenOffDuration: (duration) =>
+  set((prev) => ({ screenOffDuration: duration ?? prev.screenOffDuration })),
 
-  // 사용자 상태 및 코드 설정
-  setUserState: (state, code) => set({ userState: state, code }),
+// 사용자 상태 및 코드 설정
+setUserState: (state, code) =>
+  set((prev) => ({
+    userState: state ?? prev.userState,
+    code: code ?? prev.code,
+  })),
 }));
