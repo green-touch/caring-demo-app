@@ -14,7 +14,7 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'greeuntouch_admin_app' do
+target 'greentouch_demo_app' do
   config = use_native_modules!
 
   use_react_native!(
@@ -23,7 +23,7 @@ target 'greeuntouch_admin_app' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'greeuntouch_admin_appTests' do
+  target 'greentouch_demo_appTests' do
     inherit! :complete
     # Pods for testing
   end
