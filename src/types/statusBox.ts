@@ -2,15 +2,15 @@ import { IconName } from './icon';
 
 export interface StatusDefaultProps {
   icon: IconName;
-  message: String;
-  textColor?: String;
+  message: string;
+  textColor?: string;
 }
-export interface StatusBaytteryAlertProps {
+export interface StatusBatteryAlertProps {
   icon: IconName;
-  title: String;
-  description: String;
+  title: string;
+  description: string;
 }
 
 export interface StatusIndicatorProps extends StatusDefaultProps {
-  bgColor: String;
+  bgColor: string;
 }
