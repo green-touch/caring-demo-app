@@ -1,4 +1,4 @@
-// acount icon
+// account icon
 export { default as Account } from './ic_account.svg';
 export { default as AccountActive } from './ic_account_active.svg';
 export { default as AccountDisabled } from './ic_account_disabled.svg';
@@ -11,7 +11,7 @@ export { default as AlertTriangle } from './ic_alert_triangle.svg';
 // back icon
 export { default as Back } from './ic_back.svg';
 
-// 배터리 icon
+// battery icon
 export { default as Battery0Off } from './ic_battery_0_off.svg';
 export { default as Battery0Red } from './ic_battery_0_red.svg';
 export { default as Battery15Off } from './ic_battery_15_off.svg';
