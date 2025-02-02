@@ -64,14 +64,16 @@ function MyInfoScreen({ navigation }: MyInfoScreenProps): React.JSX.Element {
         <MyInfoWhiteBox title="전화번호" content={phoneNumber} />
         <WhiteBox>
           <Text className="font-bold text-xl mb-5 text-gray100">나의 비상연락망</Text>
-          {familyInfo.map((family, index) => (
-            <FamilyInfoBox
-              key={index}
-              name={family.name}
-              relationship={family.relationship}
-              phoneNumber={family.phoneNumber}
-            />
-          ))}
+          <View className="gap-y-4">
+            {familyInfo.map((family, index) => (
+              <FamilyInfoBox
+                key={index}
+                name={family.name}
+                relationship={family.relationship}
+                phoneNumber={family.phoneNumber}
+              />
+            ))}
+          </View>
         </WhiteBox>
         <PlatformSpecificButton onPress={() => console.log('로그아웃하기')}>
           <View className="w-20 mb-4 justify-center items-center mx-auto">
