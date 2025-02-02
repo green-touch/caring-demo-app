@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  NativeModules,
-  NativeEventEmitter,
-} from 'react-native';
+import { StyleSheet, Text, View, NativeModules, NativeEventEmitter } from 'react-native';
 import { ScreenStatus, useUserStateStore } from '../store/userStateStore'; // Zustand 상태 가져오기
 import type { EmitterSubscription } from 'react-native';
 import { requestNotificationPermission } from '../services/requestNotificationPermission';
@@ -73,19 +67,16 @@ function TestScreen(): React.JSX.Element {
         // 상태 업데이트 prevState 활용
         setBatteryStatus(
           data.batteryLevel ?? batteryStatus.level,
-          data.isCharging ?? batteryStatus.isCharging
+          data.isCharging ?? batteryStatus.isCharging,
         );
-  
+
         setScreenStatus(data.screenStatus ?? screenStatus);
-  
+
         setNetworkConnected(data.networkStatus ?? networkConnected);
-  
+
         setScreenOffDuration(data.screenOffDuration ?? screenOffDuration);
-  
-        setUserState(
-          data.userState ?? userState,
-          data.code ?? code
-        );
+
+        setUserState(data.userState ?? userState, data.code ?? code);
 
         // 네트워크 상태 변화 로직
         if (!data.networkStatus) {
@@ -118,7 +109,7 @@ function TestScreen(): React.JSX.Element {
     <View style={styles.container}>
       <Text style={styles.title}>Foreground Service Demo</Text>
       <View style={styles.statusContainer}>
-        <Text>Battery Level: {batteryStatus.level}%</Text>
+        <Text className="text-red-800">Battery Level: {batteryStatus.level}%</Text>
         <Text>Charging: {batteryStatus.isCharging ? 'Yes' : 'No'}</Text>
         <Text>Screen Status: {screenStatus ? 'Yes' : 'No'}</Text>
         <Text>Network Connected: {networkConnected ? 'Yes' : 'No'}</Text>

@@ -5,6 +5,11 @@ export interface StatusDefaultProps {
   message: String;
   textColor?: String;
 }
+export interface StatusBaytteryAlertProps {
+  icon: IconName;
+  title: String;
+  description: String;
+}
 
 export interface StatusIndicatorProps extends StatusDefaultProps {
   bgColor: String;

@@ -18,7 +18,7 @@ function MainScreen({ navigation }: any): React.JSX.Element {
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <SvgIcon name={focused ? 'HomeActive32' : 'HomeDisabled32'} size={32} />
+            <SvgIcon name={focused ? 'HomeActive' : 'HomeDisabled'} size={32} />
           ),
           tabBarStyle: tw`h-16`,
           tabBarLabelStyle: tw`mt-1 text-sm`,
@@ -37,11 +37,11 @@ function MainScreen({ navigation }: any): React.JSX.Element {
           headerStyle: tw`h-14 border-b border-[#E4E4E4]`,
           headerLeft: () => (
             <TouchableOpacity onPress={() => navigation.goBack()} className="ml-2">
-              <SvgIcon name="Back32" size={32} />
+              <SvgIcon name="Back" size={32} />
             </TouchableOpacity>
           ),
           tabBarIcon: ({ focused }) => (
-            <SvgIcon name={focused ? 'AccountActive32' : 'AccountDisabled32'} size={32} />
+            <SvgIcon name={focused ? 'AccountActive' : 'AccountDisabled'} size={32} />
           ),
           tabBarStyle: tw`h-16`,
           tabBarLabelStyle: tw`mt-1 text-sm`,

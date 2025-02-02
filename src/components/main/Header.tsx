@@ -10,7 +10,7 @@ export default function Header(): React.JSX.Element {
     <View className="flex-row bg-red700 items-center justify-center rounded-lg px-2.5 py-2">
       <View className="flex-row items-center">
         <View className=" mr-2">
-          <SvgIcon name="Bell32" size={32} />
+          <SvgIcon name="Bell" size={32} />
         </View>
         <Text className="text-xl font-bold text-gray0">SOS 긴급 구조 요청하기</Text>
       </View>
@@ -22,7 +22,7 @@ export default function Header(): React.JSX.Element {
       <View className="flex-row items-center justify-between">
         <View className="flex-row items-center">
           <View className="mr-2">
-            <SvgIcon name="MapLine18" size={18} />
+            <SvgIcon name="MapLine" size={18} />
           </View>
           <Text className="text-sm font-bold text-gray70">{welfareCenter} </Text>
           <Text className="text-sm font-regular text-gray70">소속</Text>

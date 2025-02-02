@@ -1,40 +1,97 @@
-export { default as Account24 } from './ic_account_24.svg';
-export { default as AccountActive32 } from './ic_account_active_32.svg';
-export { default as AccountDisabled32 } from './ic_account_disabled_32.svg';
-export { default as AlertCircle24 } from './ic_alert_circle_24.svg';
-export { default as AlertDefault24 } from './ic_alert_default_24.svg';
-export { default as AlertTriangle24 } from './ic_alert_triangle_24.svg';
-export { default as Back32 } from './ic_back_32.svg';
-export { default as BatteryAlert32 } from './ic_battery_alert_32.svg';
-export { default as BatteryBlack24 } from './ic_battery_black_24.svg';
-export { default as BatteryOffBlack24 } from './ic_battery_off_black_24.svg';
-export { default as BatteryOffRed24 } from './ic_battery_off_red_24.svg';
-export { default as BatteryOffYellow24 } from './ic_battery_off_yellow_24.svg';
-export { default as BatteryRed24 } from './ic_battery_red_24.svg';
-export { default as BatteryYellow24 } from './ic_battery_yellow_24.svg';
-export { default as Bell32 } from './ic_bell_32.svg';
-export { default as CheckRoundBlue32 } from './ic_check_round_blue_32.svg';
-export { default as CheckboxChecked24 } from './ic_checkbox_checked_24.svg';
-export { default as CheckboxDefault24 } from './ic_checkbox_default_24.svg';
-export { default as ChevronDown24 } from './ic_chevron_down_24.svg';
-export { default as ChevronRight18 } from './ic_chevron_right_18.svg';
-export { default as ChevronRight24 } from './ic_chevron_right_24.svg';
-export { default as ChevronRight32 } from './ic_chevron_right_32.svg';
-export { default as Close32 } from './ic_close_32.svg';
-export { default as CurrentLocation24 } from './ic_current_location_24.svg';
-export { default as EyeRemove24 } from './ic_eye_remove_24.svg';
-export { default as EyeVisible24 } from './ic_eye_visible_24.svg';
-export { default as GlobeOff24 } from './ic_globe_off_24.svg';
-export { default as GlobeOn24 } from './ic_globe_on_24.svg';
-export { default as HomeActive32 } from './ic_home_active_32.svg';
-export { default as HomeDisabled32 } from './ic_home_disabled_32.svg';
-export { default as Lock24 } from './ic_lock_24.svg';
-export { default as MapFilled24 } from './ic_map_filled_24.svg';
-export { default as MapLine18 } from './ic_map_line_18.svg';
-export { default as MapPinFilled18 } from './ic_map_pin_filled_18.svg';
-export { default as PhoneFilled24 } from './ic_phone_filled_24.svg';
-export { default as PhoneFilledBlack24 } from './ic_phone_filled_black_24.svg';
-export { default as RemoveRound24 } from './ic_remove_round_24.svg';
-export { default as Search32 } from './ic_search_32.svg';
-export { default as Wifi24 } from './ic_wifi_24.svg';
-export { default as WifiOffAlert32 } from './ic_wifi_off_alert_32.svg';
+// acount icon
+export { default as Account } from './ic_account.svg';
+export { default as AccountActive } from './ic_account_active.svg';
+export { default as AccountDisabled } from './ic_account_disabled.svg';
+
+// alert icon
+export { default as AlertCircle } from './ic_alert_circle.svg';
+export { default as AlertDefault } from './ic_alert_default.svg';
+export { default as AlertTriangle } from './ic_alert_triangle.svg';
+
+// back icon
+export { default as Back } from './ic_back.svg';
+
+// 배터리 icon
+export { default as Battery0Off } from './ic_battery_0_off.svg';
+export { default as Battery0Red } from './ic_battery_0_red.svg';
+export { default as Battery15Off } from './ic_battery_15_off.svg';
+export { default as Battery15Yellow } from './ic_battery_15_yellow.svg';
+export { default as Battery35Black } from './ic_battery_35_black.svg';
+export { default as Battery35Off } from './ic_battery_35_off.svg';
+export { default as Battery65Black } from './ic_battery_65_black.svg';
+export { default as Battery65Off } from './ic_battery_65_off.svg';
+export { default as Battery85Black } from './ic_battery_85_black.svg';
+export { default as Battery85Off } from './ic_battery_85_off.svg';
+export { default as Battery100Black } from './ic_battery_100_black.svg';
+export { default as Battery100Off } from './ic_battery_100_off.svg';
+
+export { default as BatteryAlert } from './ic_battery_alert.svg';
+
+// bell icon
+export { default as Bell } from './ic_bell.svg';
+
+// checkBox icon
+export { default as CheckRoundBlue } from './ic_check_round_blue.svg';
+export { default as CheckboxChecked } from './ic_checkbox_checked.svg';
+export { default as CheckboxDefault } from './ic_checkbox_default.svg';
+export { default as CheckboxFocus } from './ic_checkbox_focus.svg';
+
+// chevron icon
+export { default as ChevronDown } from './ic_chevron_down.svg';
+export { default as ChevronRightBlack } from './ic_chevron_right_black.svg';
+export { default as ChevronRightBlue } from './ic_chevron_right_blue.svg';
+export { default as ChevronRightGray } from './ic_chevron_right_gray.svg';
+
+// close icon
+export { default as Close } from './ic_close.svg';
+
+// contact icon
+export { default as Contact } from './ic_contact.svg';
+
+// copy icon
+export { default as Copy } from './ic_copy.svg';
+
+// current location icon
+export { default as CurrentLocation } from './ic_current_location.svg';
+
+// eye icon
+export { default as EyeRemove } from './ic_eye_remove.svg';
+export { default as EyeVisible } from './ic_eye_visible.svg';
+
+// globe icon
+export { default as GlobeOff } from './ic_globe_off.svg';
+export { default as GlobeOn } from './ic_globe_on.svg';
+
+// home icon
+export { default as HomeActive } from './ic_home_active.svg';
+export { default as HomeDisabled } from './ic_home_disabled.svg';
+
+// house icon
+export { default as HouseHeart } from './ic_house_heart.svg';
+
+// lock icon
+export { default as Lock } from './ic_lock.svg';
+export { default as LockFilled } from './ic_lock_filled.svg';
+
+// map icon
+export { default as MapFilled } from './ic_map_filled.svg';
+export { default as MapLine } from './ic_map_line.svg';
+
+// phone icon
+export { default as PhoneFilled } from './ic_phone_filled.svg';
+export { default as PhoneFilledBlue } from './ic_phone_filled_blue.svg';
+
+// radio icon
+export { default as RadioChecked } from './ic_radio_checked.svg';
+export { default as RadioDefault } from './ic_radio_default.svg';
+export { default as RadioFocus } from './ic_radio_focus.svg';
+
+// remove icon
+export { default as RemoveRound } from './ic_remove_round.svg';
+
+// search icon
+export { default as Search } from './ic_search.svg';
+
+// wifi icon
+export { default as Wifi } from './ic_wifi.svg';
+export { default as WifiOffAlert } from './ic_wifi_off_alert.svg';

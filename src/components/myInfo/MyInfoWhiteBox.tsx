@@ -14,9 +14,9 @@ function MyInfoWhiteBox({
 }): React.JSX.Element {
   return (
     <WhiteBox styleName={styleName}>
-      <Text className="font-bold text-xl mb-5">{title}</Text>
+      <Text className="font-bold text-xl mb-5 text-gray100">{title}</Text>
       <View className="items-center justify-center bg-gray5 p-4 rounded-lg">
-        <Text className="text-lg text-center">{content}</Text>
+        <Text className="text-lg text-center text-gray100">{content}</Text>
       </View>
     </WhiteBox>
   );

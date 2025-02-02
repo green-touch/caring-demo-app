@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface greeuntouch_admin_appTests : XCTestCase
+@interface greentouch_admin_appTests : XCTestCase
 
 @end
 
-@implementation greeuntouch_admin_appTests
+@implementation greentouch_admin_appTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *view))test
 {
