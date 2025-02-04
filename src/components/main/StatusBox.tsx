@@ -11,6 +11,7 @@ import { IconName } from '@_types/icon';
 
 function StatusBox({ status }: { status: StatusType }): React.JSX.Element {
   let iconConfig: IconName[] = ['AlertDefault24', 'GlobeOn24', 'BatteryBlack24'];
+
   const statusConfig = {
     danger: {
       message: '위험 상태입니다!',

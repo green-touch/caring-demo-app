@@ -8,6 +8,7 @@ import HomeScreen from '@_screens/HomeScreen';
 import TestScreen from '@_screens/TestScreen';
 import SampleHomeScreen from '@_screens/SampleHomeScreen';
 import MyInfoScreen from '@_screens/MyInfoScreen';
+import "@_styles/global.css"
 
 const Stack = createNativeStackNavigator();
 
