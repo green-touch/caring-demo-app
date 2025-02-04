@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-import SvgIcon from '../../SvgIcon';
+import SvgIcon from '@_components/SvgIcon';
 
-import { StatusDefaultProps } from '../../../types/statusBox';
+import { StatusDefaultProps } from '@_types/statusBox';
 
 function BatteryStatus({ icon, message, textColor }: StatusDefaultProps): React.JSX.Element {
   return (

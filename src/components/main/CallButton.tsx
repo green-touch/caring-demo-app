@@ -11,7 +11,7 @@ function CallButton(): React.JSX.Element {
   return (
     <PlatformSpecificButton onPress={handlePress}>
       <View className="w-full bg-main900 rounded-lg px-16 py-3">
-        <Text className="text-lg text-gray0 text-center">담당 복지사에게 전화</Text>
+        <Text className="text-lg text-gray0 text-center">담당 복지사에게 전화하기</Text>
       </View>
     </PlatformSpecificButton>
   );

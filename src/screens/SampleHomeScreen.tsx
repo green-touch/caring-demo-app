@@ -75,37 +75,14 @@ useEffect(() => {
     setScreenOffDuration(data.screenOffDuration ?? screenOffDuration);
     setUserState(data.userState ?? userState, data.code ?? code);
   });
-
+  
+  
   return () => {
     subscription.remove();
   };
 }, [setBatteryStatus, setScreenStatus, setNetworkConnected, setScreenOffDuration, setUserState]);
 
 
-const statusMapping: Record<UserState, 'safe' | 'warning' | 'danger'> = {
-  정상: 'safe',
-  경고: 'warning',
-  위험: 'danger',
-};
-  // 🟢 `code`에 따라 UI 변경
-  const getUserStateUI = () => {
-    switch (code) {
-      case "NET-04":
-        return { text: "🚨 네트워크 연결이 끊겼습니다!", bgColor: "bg-red-100", textColor: "text-red-700" };
-      case "NET-02":
-        return { text: "⚠️ 네트워크 연결이 불안정합니다.", bgColor: "bg-yellow-100", textColor: "text-yellow-700" };
-      case "BAT-02":
-        return { text: "🚨 배터리 잔량이 10% 이하입니다!", bgColor: "bg-red-100", textColor: "text-red-700" };
-      case "BAT-01":
-        return { text: "⚠️ 배터리 잔량이 20% 이하입니다.", bgColor: "bg-yellow-100", textColor: "text-yellow-700" };
-      case "SCR-02":
-        return { text: "🚨 화면이 2분 이상 꺼져 있습니다!", bgColor: "bg-red-100", textColor: "text-red-700" };
-      case "SCR-01":
-        return { text: "⚠️ 화면이 1분 이상 꺼져 있습니다.", bgColor: "bg-yellow-100", textColor: "text-yellow-700" };
-      default:
-        return { text: "✅ 정상 상태입니다!", bgColor: "bg-green-100", textColor: "text-green-700" };
-    }
-  };
 
   return (
     <>
@@ -117,7 +94,7 @@ const statusMapping: Record<UserState, 'safe' | 'warning' | 'danger'> = {
               <Image className="w-full h-full" source={require('../assets/images/img_user.png')} />
             </View>
             <Text className="text-xl mb-6">{name}</Text>
-            <StatusBox status="safe" />
+            <StatusBox code={code} batteryLevel={batteryStatus.level} networkConnected={networkConnected} userState={userState}></StatusBox>
             <CallButton />
             <Text className="text-gray50 mt-4">마지막 업데이트 : 2024.12.12 12:33</Text>
           </WhiteBox>

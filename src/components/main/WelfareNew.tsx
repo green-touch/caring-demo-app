@@ -21,14 +21,14 @@ function WelfareNew(): React.JSX.Element {
           </View>
         </View>
         <View className="w-8/12">
-          <Text className="text-lg font-bold text-gray90" numberOfLines={1}>
+          <Text className="text-lg font-bold text-gray90 mb-2" numberOfLines={1}>
             10월 결핵 예방 교육 이용 이벤트
           </Text>
           <Text className="text-sm text-gray70" numberOfLines={1}>
             2024년 10월 27일
           </Text>
         </View>
-        <SvgIcon name="ChevronRight32" size={32} className="w-1/12" />
+        <SvgIcon name="ChevronRightGray" size={32} className="w-1/12" />
       </View>
     </PlatformSpecificButton>
   );

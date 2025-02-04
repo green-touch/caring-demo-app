@@ -36,7 +36,7 @@ function MyInfoScreen({ navigation }: MyInfoScreenProps): React.JSX.Element {
     },
     {
       name: '선우용여',
-      relationship: '우주',
+      relationship: '우주킹킹킹킹킹킹킹킹',
       phoneNumber: '010-1234-5678',
     },
   ]);
@@ -52,9 +52,9 @@ function MyInfoScreen({ navigation }: MyInfoScreenProps): React.JSX.Element {
             />
           </View>
           <View className="justify-center w-4/5">
-            <Text className="text-xl mb-1">{name}</Text>
+            <Text className="text-xl mb-1 text-gray100">{name}</Text>
             <View className="flex-row">
-              <SvgIcon name="MapPinFilled18" size={18} />
+              <SvgIcon name="MapFilled" size={18} />
               <Text className="text-gray70 font-bold text-sm ml-1">{welfareName}</Text>
               <Text className="text-gray70 text-sm"> 소속</Text>
             </View>
@@ -63,15 +63,17 @@ function MyInfoScreen({ navigation }: MyInfoScreenProps): React.JSX.Element {
         <MyInfoWhiteBox title="거주지" content={address} styleName="mt-4" />
         <MyInfoWhiteBox title="전화번호" content={phoneNumber} />
         <WhiteBox>
-          <Text className="font-bold text-xl mb-5">나의 비상연락망</Text>
-          {familyInfo.map((family, index) => (
-            <FamilyInfoBox
-              key={index}
-              name={family.name}
-              relationship={family.relationship}
-              phoneNumber={family.phoneNumber}
-            />
-          ))}
+          <Text className="font-bold text-xl mb-5 text-gray100">나의 비상연락망</Text>
+          <View className="gap-y-4">
+            {familyInfo.map((family, index) => (
+              <FamilyInfoBox
+                key={index}
+                name={family.name}
+                relationship={family.relationship}
+                phoneNumber={family.phoneNumber}
+              />
+            ))}
+          </View>
         </WhiteBox>
         <PlatformSpecificButton onPress={() => console.log('로그아웃하기')}>
           <View className="w-20 mb-4 justify-center items-center mx-auto">

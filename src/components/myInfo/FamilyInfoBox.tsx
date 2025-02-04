@@ -5,16 +5,18 @@ import { FamilyInfo } from '@_types/familyInfo';
 
 function FamilyInfoBox({ name, relationship, phoneNumber }: FamilyInfo): React.JSX.Element {
   return (
-    <View className="flex-row p-4 rounded-lg">
-      <View className="w-1/2 flex-row items-baseline mr-2">
-        <Text className="w-1/2 text-lg font-bold" numberOfLines={1} ellipsizeMode="clip">
+   <View className="flex-row rounded-lg py-4 px-2 w-full justify-between"> 
+     <View className="flex-row items-baseline space-x-2">
+        <Text className=" text-lg font-bold text-gray100" numberOfLines={1} ellipsizeMode="clip">
           {name}
         </Text>
-        <Text className="w-1/2 text-base text-gray50" numberOfLines={1}>
+        <Text className=" text-base text-gray50" numberOfLines={1}>
           {relationship}
         </Text>
       </View>
-      <Text className="w-1/2 text-lg">{phoneNumber}</Text>
+      <View className=" flex-row">
+        <Text className="text-lg text-center text-gray100">{phoneNumber}</Text>
+      </View>
     </View>
   );
 }
