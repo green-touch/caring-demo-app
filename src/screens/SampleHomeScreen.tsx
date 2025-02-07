@@ -91,9 +91,9 @@ useEffect(() => {
         <ScrollView>
           <WhiteBox styleName="mt-4 items-center">
             <View className="w-16 h-16 mb-4">
-              <Image className="w-full h-full" source={require('../assets/images/img_user.png')} />
+              <Image className="w-full h-full" source={require('@_assets/images/img_user.png')} />
             </View>
-            <Text className="text-xl mb-6">{name}</Text>
+            <Text className="text-2xl mb-6 text-gray90">{name}</Text>
             <StatusBox code={code} batteryLevel={batteryStatus.level} networkConnected={networkConnected} userState={userState}></StatusBox>
             <CallButton />
             <Text className="text-gray50 mt-4">마지막 업데이트 : 2024.12.12 12:33</Text>

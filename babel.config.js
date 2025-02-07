@@ -33,7 +33,6 @@ module.exports = {
           '@_styles': './src/styles',
           '@_types': './src/types',
           '@_utils': './src/utils',
-          '@_zustand': './src/zustand',
           '@_store': './src/store',
         },
       },

@@ -29,9 +29,9 @@ function StatusBox({ code, batteryLevel, networkConnected,userState }: {
 
   // 배터리 아이콘 결정
   const getBatteryIcon = (batteryLevel: number, networkConnected: boolean): IconName => {
-    if (batteryLevel <= 5) return networkConnected ? "Battery0Red" : "Battery0Off";
-    if (batteryLevel <= 15) return networkConnected ? "Battery15Yellow" : "Battery15Off";
-    if (batteryLevel <= 35) return networkConnected ? "Battery35Black" : "Battery35Off";
+    if (batteryLevel <= 10) return networkConnected ? "Battery0Red" : "Battery0Off";
+    if (batteryLevel <= 20) return networkConnected ? "Battery15Yellow" : "Battery15Off";
+    if (batteryLevel <= 45) return networkConnected ? "Battery35Black" : "Battery35Off";
     if (batteryLevel <= 65) return networkConnected ? "Battery65Black" : "Battery65Off";
     if (batteryLevel <= 85) return networkConnected ? "Battery85Black" : "Battery85Off";
     return networkConnected ? "Battery100Black" : "Battery100Off";

@@ -29,7 +29,6 @@ const config = mergeConfig(getDefaultConfig(__dirname), {
       '@_styles': path.resolve(__dirname, 'src/styles'),
       '@_types': path.resolve(__dirname, 'src/types'),
       '@_utils': path.resolve(__dirname, 'src/utils'),
-      '@_zustand': path.resolve(__dirname, 'src/zustand'),
       '@_store': path.resolve(__dirname, 'src/store'),
     },
   },
