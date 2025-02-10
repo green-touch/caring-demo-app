@@ -14,3 +14,16 @@ export interface StatusBatteryAlertProps {
 export interface StatusIndicatorProps extends StatusDefaultProps {
   bgColor: string;
 }
+
+export type AlertStatus = "danger" | "warning" | "default";
+
+export const ALERT_ICONS: Record<AlertStatus, IconName> = {
+  danger: "AlertTriangle",
+  warning: "AlertCircle",
+  default: "AlertDefault",
+};
+
+export type AlertMesssage ={
+  title:string;
+  description:string;
+}

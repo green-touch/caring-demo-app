@@ -5,7 +5,7 @@ import StatusIndicator from './StatusBoxComponents/StatusIndicator';
 import NetworkStatus from './StatusBoxComponents/NetworkStatus';
 import BatteryStatus from './StatusBoxComponents/BatteryStatus';
 import BatteryAlert from './StatusBoxComponents/BatteryAlert';
-
+import { AlertStatus ,ALERT_ICONS,AlertMesssage} from '@_types/statusBox';
 import { StatusType } from '@_types/homeScreen';
 import { IconName } from '@_types/icon';
 function StatusBox({ code, batteryLevel, networkConnected,userState }: { 
@@ -15,11 +15,11 @@ function StatusBox({ code, batteryLevel, networkConnected,userState }: {
   userState:string;
 }): React.JSX.Element {
 
-  const [status, setStatus] = useState<string>(
-    userState === "위험" ? "danger" : userState === "경고" ? "warning" : "safe"
+  const [status, setStatus] = useState<AlertStatus>(
+    userState === "위험" ? "danger" : userState === "경고" ? "warning" : "default"
   );
   useEffect(() => {
-    const newStatus = userState === "위험" ? "danger" : userState === "경고" ? "warning" : "safe";
+    const newStatus = userState === "위험" ? "danger" : userState === "경고" ? "warning" : "default";
 
     if (newStatus !== status) {
       console.log("상태 변경 감지:", status, "->", newStatus);
@@ -28,29 +28,34 @@ function StatusBox({ code, batteryLevel, networkConnected,userState }: {
   }, [userState,networkConnected,batteryLevel]); // `batteryLevel` 제거 -> 무한 루프 방지
 
   // 배터리 아이콘 결정
-  const getBatteryIcon = (batteryLevel: number, networkConnected: boolean): IconName => {
-    if (batteryLevel <= 10) return networkConnected ? "Battery0Red" : "Battery0Off";
-    if (batteryLevel <= 20) return networkConnected ? "Battery15Yellow" : "Battery15Off";
-    if (batteryLevel <= 45) return networkConnected ? "Battery35Black" : "Battery35Off";
-    if (batteryLevel <= 65) return networkConnected ? "Battery65Black" : "Battery65Off";
-    if (batteryLevel <= 85) return networkConnected ? "Battery85Black" : "Battery85Off";
-    return networkConnected ? "Battery100Black" : "Battery100Off";
-  };
+  // 배터리 아이콘 결정
+const getBatteryIcon = (batteryLevel: number, networkConnected: boolean): IconName => {
+  const batteryLevels: { max: number; connected: IconName; disconnected: IconName }[] = [
+    { max: 10, connected: "Battery0Red", disconnected: "Battery0Off" },
+    { max: 20, connected: "Battery15Yellow", disconnected: "Battery15Off" },
+    { max: 45, connected: "Battery35Black", disconnected: "Battery35Off" },
+    { max: 65, connected: "Battery65Black", disconnected: "Battery65Off" },
+    { max: 85, connected: "Battery85Black", disconnected: "Battery85Off" },
+    { max: 100, connected: "Battery100Black", disconnected: "Battery100Off" },
+  ];
+
+  const battery = batteryLevels.find(({ max }) => batteryLevel <= max) || batteryLevels[batteryLevels.length - 1];
+
+  return networkConnected ? battery.connected : battery.disconnected;
+};
+
 
   // 네트워크 아이콘 결정
   const getNetworkIcon = (networkConnected: boolean): IconName => {
     return networkConnected ? "GlobeOn" : "GlobeOff";
   };
   //alert 아이콘
-  const getAlertIcon = (status: string, networkConnected: boolean): IconName => {
-    if (!networkConnected) return "Wifi"; 
-    if (status === "danger") return "AlertTriangle";
-    if (status === "warning") return "AlertCircle";
-    return "AlertDefault"; 
+  const getAlertIcon = (status: AlertStatus, networkConnected: boolean): IconName => {
+    return networkConnected ? ALERT_ICONS[status] : "Wifi";
   };
 
   //Alert 메시지 설정
-  const getAlertMessage = (code: string | null) => {
+  const getAlertMessage = (code: string | null):AlertMesssage => {
     switch (code) {
       case "NET-04":
       case "NET-02":
@@ -83,7 +88,7 @@ function StatusBox({ code, batteryLevel, networkConnected,userState }: {
       battery: { percentage: `${batteryLevel}%`, textColor: "text-yellow800" },
       alert: getAlertMessage(code),
     },
-    safe: {
+    default: {
       message: "안전한 상태입니다!",
       bgColor: "bg-green50",
       textColor: "text-green900",
@@ -102,7 +107,7 @@ function StatusBox({ code, batteryLevel, networkConnected,userState }: {
 
   //아이콘 설정
   const iconConfig: IconName[] = [
-    getAlertIcon(status,networkConnected), // Alert 아이콘
+    getAlertIcon(status as AlertStatus,networkConnected), // Alert 아이콘
     getNetworkIcon(networkConnected), // 네트워크 아이콘
     getBatteryIcon(batteryLevel, networkConnected), // 배터리 아이콘
     getAlertBoxIcon(code),
@@ -133,7 +138,7 @@ function StatusBox({ code, batteryLevel, networkConnected,userState }: {
           textColor={config.battery.textColor}
         />
       </View>
-      {status === 'safe' ? (
+      {status === 'default' ? (
         <></>
       ) : (
         <BatteryAlert
