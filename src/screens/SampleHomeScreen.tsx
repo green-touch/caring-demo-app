@@ -12,6 +12,7 @@ import { useUserStateStore,UserState } from '@_store/userStateStore';
 import { NativeModules, NativeEventEmitter } from 'react-native';
 
 
+
 const { ForegroundServiceModule } = NativeModules;
 
 function SampleHomeScreen({ navigation }: SampleHomeScreenProps): React.JSX.Element {
@@ -24,6 +25,7 @@ function SampleHomeScreen({ navigation }: SampleHomeScreenProps): React.JSX.Elem
     screenOffDuration,
     userState,
     code,
+    lastUpdated,
     setBatteryStatus,
     setScreenStatus,
     setNetworkConnected,
@@ -96,7 +98,7 @@ useEffect(() => {
             <Text className="text-2xl mb-6 text-gray90">{name}</Text>
             <StatusBox code={code} batteryLevel={batteryStatus.level} networkConnected={networkConnected} userState={userState}></StatusBox>
             <CallButton />
-            <Text className="text-gray50 mt-4">마지막 업데이트 : 2024.12.12 12:33</Text>
+            <Text className="text-gray50 mt-4">마지막 업데이트 : {lastUpdated}</Text>
           </WhiteBox>
           <WhiteBox>
             <Text className="text-xl font-bold mb-6">복지관 소식</Text>
