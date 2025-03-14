@@ -8,7 +8,7 @@ import android.net.NetworkCapabilities
 import android.os.BatteryManager
 import android.os.PowerManager
 import android.os.Build
-
+import android.location.LocationManager 
 
 class UserStatusProvider(private val context: Context) {
 
@@ -55,4 +55,9 @@ class UserStatusProvider(private val context: Context) {
         }
     }
     
+    // GPS 활성화 여부 가져오기
+    fun isGPSEnabled(): Boolean {
+        val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+    }
 }

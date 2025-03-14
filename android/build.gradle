@@ -6,6 +6,7 @@ buildscript {
         targetSdkVersion = 34
         ndkVersion = "26.1.10909125"
         kotlinVersion = "1.9.24"
+        googlePlayServicesVersion = "21.0.1" 
     }
     repositories {
         google()
@@ -28,4 +29,12 @@ allprojects {
     }
 }
 
+subprojects {
+    afterEvaluate { project ->
+        if (project.hasProperty("android")) {
+            project.android.compileOptions.sourceCompatibility JavaVersion.VERSION_17
+            project.android.compileOptions.targetCompatibility JavaVersion.VERSION_17
+        }
+    }
+}
 apply plugin: "com.facebook.react.rootproject"

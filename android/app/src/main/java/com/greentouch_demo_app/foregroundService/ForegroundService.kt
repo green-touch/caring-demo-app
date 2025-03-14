@@ -92,7 +92,8 @@ class ForegroundService : Service() {
                     val batteryStatus = userStatusProvider.getBatteryStatus()
                     val screenStatus = userStatusProvider.getScreenStatus()
                     val networkStatus = userStatusProvider.getNetworkStatus()
-
+                    val isGPSEnabled = userStatusProvider.isGPSEnabled()
+            
 
                           // 네트워크 상태에 따라 알림 취소
                     if (networkStatus) {
@@ -141,7 +142,8 @@ class ForegroundService : Service() {
                             "screenStatus" to screenStatus,
                             "screenOffDuration" to screenOffDuration,
                             "userState" to userState,
-                            "code" to code
+                            "code" to code,
+                            "gpsEnabled" to isGPSEnabled
                         )
                     )
 
@@ -257,4 +259,3 @@ class ForegroundService : Service() {
 
     override fun onBind(intent: Intent?): IBinder? = null
 }
-
