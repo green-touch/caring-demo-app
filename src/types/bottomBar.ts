@@ -6,8 +6,8 @@ type RootStackParamList = {
 };
 
 type SampleHomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'SampleHome'>;
-
 type MyInfoScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'MyInfo'>;
+type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
 
 export interface SampleHomeScreenProps {
   navigation: SampleHomeScreenNavigationProp;
@@ -16,3 +16,8 @@ export interface SampleHomeScreenProps {
 export interface MyInfoScreenProps {
   navigation: MyInfoScreenNavigationProp;
 }
+
+export interface LoginScreenProps {
+  navigation: LoginScreenNavigationProp;
+}
+
