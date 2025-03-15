@@ -3,7 +3,7 @@ import { Platform, TouchableOpacity, TouchableNativeFeedback, View } from 'react
 
 import { PlatformSpecificButtonProps } from '@_types/homeScreen';
 
-const PlatformSpecificButton: React.FC<PlatformSpecificButtonProps> = ({ children, onPress }) => {
+const PlatformSpecificButton: React.FC<PlatformSpecificButtonProps> = ({ children, onPress, style = "" }) => {
   return Platform.select({
     ios: (
       <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
@@ -11,7 +11,7 @@ const PlatformSpecificButton: React.FC<PlatformSpecificButtonProps> = ({ childre
       </TouchableOpacity>
     ),
     android: (
-      <View className="overflow-hidden ">
+      <View className={`${style} overflow-hidden`}>
         <TouchableNativeFeedback onPress={onPress}>{children}</TouchableNativeFeedback>
       </View>
     ),
