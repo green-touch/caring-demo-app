@@ -3,6 +3,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 type RootStackParamList = {
   SampleHome: undefined;
   MyInfo: undefined;
+  Login: undefined;
 };
 
 type SampleHomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'SampleHome'>;
@@ -20,4 +21,3 @@ export interface MyInfoScreenProps {
 export interface LoginScreenProps {
   navigation: LoginScreenNavigationProp;
 }
-
