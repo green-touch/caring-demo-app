@@ -1,32 +1,24 @@
 import { useEffect, useState, useCallback } from 'react';
 
-/** 통신사 정보 구조 */
 export interface TelecomItem {
     title: string;
     hasDropdown: boolean;
     dropDownTitle?: string[];
 }
 
-/** 성별 */
 export type Gender = '남자' | '여자';
-
-/** 휴대폰 번호 유효성 체크 & 포맷팅 */
 function formatPhoneNumberAndValidate(rawValue: string): {
     formatted: string;
     isError: boolean;
     errorMessage: string;
 } {
-    // 숫자만 추출
     const digits = rawValue.replace(/\D/g, '');
 
-    // 11자리 초과면 잘라서 무시
     if (digits.length > 11) {
-        // 자르는 대신, 초과분을 무시하려면
         const truncated = digits.slice(0, 11);
         return formatPhoneNumberAndValidate(truncated);
     }
 
-    // 포맷팅
     let formatted = digits;
     if (digits.length > 3) {
         formatted = digits.slice(0, 3) + '-' + digits.slice(3);
@@ -40,15 +32,12 @@ function formatPhoneNumberAndValidate(rawValue: string): {
             digits.slice(7);
     }
 
-    // 에러 체크
     let isError = false;
     let errorMessage = '';
-    // 길이 3 이상일 때 010인지 체크
     if (digits.length >= 3 && digits.slice(0, 3) !== '010') {
         isError = true;
         errorMessage = '올바른 전화번호 형식을 입력해주세요.';
     }
-    // 길이가 11자 정확히 되지 않으면 에러
     if (digits.length > 0 && digits.length < 11) {
         isError = true;
         errorMessage = '올바른 전화번호 형식을 입력해주세요.';
@@ -58,15 +47,11 @@ function formatPhoneNumberAndValidate(rawValue: string): {
 }
 
 interface UseVerificationFormParams {
-    /** 가능한 성별 목록 */
     genders: Gender[];
-    /** 가능한 통신사 목록 */
     telecoms: TelecomItem[];
-    /** 인증번호 정답 (실제로는 서버에서 받겠지만 예시상 하드코딩) */
     correctCode?: string;
 }
 
-/** 타이머 초기값(3분 = 180초) */
 const INITIAL_COUNT = 180;
 
 export function useVerificationForm({
