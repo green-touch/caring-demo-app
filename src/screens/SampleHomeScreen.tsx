@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, SafeAreaView, ScrollView, Image } from 'react-native';
 import { requestNotificationPermission } from '@_services/requestNotificationPermission';
 import Header from '@_components/main/Header';
@@ -8,7 +8,7 @@ import CallButton from '@_components/main/CallButton';
 import WelfareNew from '@_components/main/WelfareNew';
 
 import { SampleHomeScreenProps } from '@_types/bottomBar';
-import { useUserStateStore,UserState } from '@_store/userStateStore';
+import { useUserStateStore, UserState } from '@_store/userStateStore';
 import { NativeModules, NativeEventEmitter } from 'react-native';
 
 
@@ -33,58 +33,56 @@ function SampleHomeScreen({ navigation }: SampleHomeScreenProps): React.JSX.Elem
     setUserState,
   } = useUserStateStore();
 
-// Foreground Service 시작
-useEffect(() => {
-  const startForegroundService = async () => {
-    try {
-      await ForegroundServiceModule.startService();
-      console.log('Foreground Service started');
-    } catch (error) {
-      console.error('Error starting service:', error);
-    }
-  };
+  // Foreground Service 시작
+  useEffect(() => {
+    const startForegroundService = async () => {
+      try {
+        await ForegroundServiceModule.startService();
+        console.log('Foreground Service started');
+      } catch (error) {
+        console.error('Error starting service:', error);
+      }
+    };
 
-  const stopForegroundService = async () => {
-    try {
-      await ForegroundServiceModule.stopService();
-      console.log('Foreground Service stopped');
-    } catch (error) {
-      console.error('Error stopping service:', error);
-    }
-  };
+    const stopForegroundService = async () => {
+      try {
+        await ForegroundServiceModule.stopService();
+        console.log('Foreground Service stopped');
+      } catch (error) {
+        console.error('Error stopping service:', error);
+      }
+    };
 
-  requestNotificationPermission(); // 알림 권한 요청
-  startForegroundService();
+    requestNotificationPermission(); // 알림 권한 요청
+    startForegroundService();
 
-  return () => {
-    stopForegroundService();
-  };
-}, []);
+    return () => {
+      stopForegroundService();
+    };
+  }, []);
 
-// Foreground Service 이벤트 리스너 등록
-useEffect(() => {
-  const eventEmitter = new NativeEventEmitter(ForegroundServiceModule);
-  const subscription = eventEmitter.addListener('UserStateUpdate', (data) => {
-    console.log('상태 업데이트 이벤트 수신:', data);
+  // Foreground Service 이벤트 리스너 등록
+  useEffect(() => {
+    const eventEmitter = new NativeEventEmitter(ForegroundServiceModule);
+    const subscription = eventEmitter.addListener('UserStateUpdate', (data) => {
+      console.log('상태 업데이트 이벤트 수신:', data);
 
-    // Zustand 전역 상태 업데이트
-    setBatteryStatus(
-      data.batteryLevel ?? batteryStatus.level,
-      data.isCharging ?? batteryStatus.isCharging
-    );
-    setScreenStatus(data.screenStatus ?? screenStatus);
-    setNetworkConnected(data.networkStatus ?? networkConnected);
-    setScreenOffDuration(data.screenOffDuration ?? screenOffDuration);
-    setUserState(data.userState ?? userState, data.code ?? code);
-  });
-  
-  
-  return () => {
-    subscription.remove();
-  };
-}, [setBatteryStatus, setScreenStatus, setNetworkConnected, setScreenOffDuration, setUserState]);
+      // Zustand 전역 상태 업데이트
+      setBatteryStatus(
+        data.batteryLevel ?? batteryStatus.level,
+        data.isCharging ?? batteryStatus.isCharging
+      );
+      setScreenStatus(data.screenStatus ?? screenStatus);
+      setNetworkConnected(data.networkStatus ?? networkConnected);
+      setScreenOffDuration(data.screenOffDuration ?? screenOffDuration);
+      setUserState(data.userState ?? userState, data.code ?? code);
+    });
 
 
+    return () => {
+      subscription.remove();
+    };
+  }, [setBatteryStatus, setScreenStatus, setNetworkConnected, setScreenOffDuration, setUserState]);
 
   return (
     <>
