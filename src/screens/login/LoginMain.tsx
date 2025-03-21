@@ -2,7 +2,7 @@ import React, { use, useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native'
 import { LoginScreenProps } from '@_types/bottomBar'
 
-import { useLoginToggle } from '../hooks/login/useLoginToggle';
+import { useLoginToggle } from '../../hooks/login/useLoginToggle';
 
 import LoginTitle from '@_components/login/LoginTitle';
 import LoginInput from '@_components/login/LoginInput';
@@ -34,7 +34,7 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
             <LoginInput placeholder='비밀번호' value={비밀번호} handleInput={handle비밀번호} secureTextEntry={true} />
             <LoginToggle 로그인유지={로그인유지} onPress={handleLoginToggle} />
             <LoginErrorText isVisible={isError} />
-            <LoginButton onPress={handleLoginPress} />
+            <LoginButton buttonTitle='로그인' onPress={handleLoginPress} />
             <LoginOptions />
             <LoginHelp />
         </SafeAreaView >
