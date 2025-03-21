@@ -7,10 +7,21 @@ import HomeScreen from '@_screens/HomeScreen';
 import TestScreen from '@_screens/TestScreen';
 import SampleHomeScreen from '@_screens/SampleHomeScreen';
 import MyInfoScreen from '@_screens/MyInfoScreen';
-import LoginScreen from '@_screens/LoginScreen';
+import LoginMain from '@_screens/login/LoginMain';
+import FindInfo from '@_screens/login/FindInfo';
+import Verification from '@_screens/login/Verification';
 
 
 const Stack = createNativeStackNavigator();
+const AuthStack = createNativeStackNavigator();
+
+const AuthStackNavigator = () => (
+  <AuthStack.Navigator initialRouteName="LoginMain" screenOptions={{ headerShown: false }}>
+    <AuthStack.Screen name="LoginMain" component={LoginMain} />
+    <AuthStack.Screen name="FindInfo" component={FindInfo} />
+    <AuthStack.Screen name="Verification" component={Verification} />
+  </AuthStack.Navigator>
+);
 
 function App(): React.JSX.Element {
   return (
@@ -21,7 +32,7 @@ function App(): React.JSX.Element {
         <Stack.Screen name="Test" component={TestScreen} />
         <Stack.Screen name="SampleHome" component={SampleHomeScreen} />
         <Stack.Screen name="MyInfo" component={MyInfoScreen} />
-        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Login" component={AuthStackNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
   );
