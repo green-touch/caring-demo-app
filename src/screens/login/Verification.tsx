@@ -1,11 +1,18 @@
 import React from 'react';
 import { SafeAreaView, Text, View, TouchableOpacity, Alert, ScrollView } from 'react-native';
+import { useNavigation, NavigationProp, useRoute, RouteProp } from '@react-navigation/native';
+
 
 import NavigationHeader from '@_components/common/NavigationHeader';
 import InfoInput from '@_components/login/InfoInput';
 import LoginButton from '@_components/login/LoginButton';
 import LoginHelp from '@_components/login/LoginHelp';
+
 import { useVerificationForm, Gender, TelecomItem } from '@_hooks/login/useVerificationForm';
+import { AuthStackParamList } from '@_types/authStack';
+
+
+type FindIdRouteProp = RouteProp<AuthStackParamList, "FindInfo">;
 
 const formDataGenders: Gender[] = ['남자', '여자'];
 const formDataTelecom: TelecomItem[] = [
@@ -16,6 +23,10 @@ const formDataTelecom: TelecomItem[] = [
 ];
 
 export default function Verification() {
+    const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
+    const route = useRoute<FindIdRouteProp>();
+    const { mode } = route.params;
+
     const {
         genders,
         telecoms,
@@ -41,6 +52,7 @@ export default function Verification() {
         genders: formDataGenders,
         telecoms: formDataTelecom,
         correctCode: '123456',
+        afterSubmit: () => navigation.navigate('HelpResult', { mode })
     });
 
     const isSelected = (itemTitle: string) => {
@@ -60,13 +72,7 @@ export default function Verification() {
 
     const onPressSubmit = () => {
         if (!isFormValid) {
-            if (isTimeExpired) {
-                Alert.alert('알림', '인증번호가 만료되었습니다. 다시 인증번호를 받아주세요.');
-            } else if (phoneNumberError) {
-                Alert.alert('알림', phoneNumberError);
-            } else {
-                Alert.alert('알림', '모든 항목을 올바르게 입력해주세요.');
-            }
+            console.log('폼이 유효하지 않습니다.');
         }
         handleSubmit();
     };

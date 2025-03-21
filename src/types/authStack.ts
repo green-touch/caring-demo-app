@@ -1,10 +1,18 @@
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { InfoType } from "./findInfo";
+import ResetPassword from '../screens/login/ResetPassword';
 
 export type AuthStackParamList = {
   LoginMain: undefined;
   FindInfo: {
     mode : InfoType;
   };
-  Verification: undefined;
+  Verification: {
+    mode : InfoType;
+  };
+  HelpResult : {
+    mode : InfoType;
+  }
+  ResetPassword: {
+    mode : Omit<'id',InfoType>;
+  }
 };

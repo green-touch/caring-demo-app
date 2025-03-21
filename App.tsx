@@ -10,6 +10,8 @@ import MyInfoScreen from '@_screens/MyInfoScreen';
 import LoginMain from '@_screens/login/LoginMain';
 import FindInfo from '@_screens/login/FindInfo';
 import Verification from '@_screens/login/Verification';
+import ResetPassword from '@_screens/login/ResetPassword';
+import HelpResult from '@_screens/login/HelpResult';
 
 
 const Stack = createNativeStackNavigator();
@@ -20,6 +22,8 @@ const AuthStackNavigator = () => (
     <AuthStack.Screen name="LoginMain" component={LoginMain} />
     <AuthStack.Screen name="FindInfo" component={FindInfo} />
     <AuthStack.Screen name="Verification" component={Verification} />
+    <AuthStack.Screen name="ResetPassword" component={ResetPassword} />
+    <AuthStack.Screen name="HelpResult" component={HelpResult} />
   </AuthStack.Navigator>
 );
 

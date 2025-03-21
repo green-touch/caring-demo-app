@@ -84,9 +84,9 @@ const FindInfo = () => {
 
     const handleNext = useCallback(() => {
         if (validateFields()) {
-            navigation.navigate('Verification');
+            navigation.navigate('Verification', { mode });
         }
-    }, [validateFields, navigation]);
+    }, [validateFields, navigation, mode]);
 
     return (
         <SafeAreaView className="flex h-full w-full bg-gray1 items-center justify-start">

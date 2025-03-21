@@ -50,6 +50,7 @@ interface UseVerificationFormParams {
     genders: Gender[];
     telecoms: TelecomItem[];
     correctCode?: string;
+    afterSubmit?: () => void;
 }
 
 const INITIAL_COUNT = 180;
@@ -58,6 +59,7 @@ export function useVerificationForm({
     genders,
     telecoms,
     correctCode = '123456',
+    afterSubmit = () => { }
 }: UseVerificationFormParams) {
     const [selectedGender, setSelectedGender] = useState<Gender | null>(null);
     const [selectedTelecom, setSelectedTelecom] = useState<string | null>(null);
@@ -162,12 +164,13 @@ export function useVerificationForm({
             return;
         }
 
-        console.log('제출 완료', {
-            gender: selectedGender,
-            telecom: selectedTelecom,
-            phoneNumber,
-            verificationCode,
-        });
+        // console.log('제출 완료', {
+        //     gender: selectedGender,
+        //     telecom: selectedTelecom,
+        //     phoneNumber,
+        //     verificationCode,
+        // });
+        afterSubmit();
     }, [
         isTimeExpired,
         selectedGender,
@@ -176,6 +179,7 @@ export function useVerificationForm({
         verificationCode,
         phoneNumberError,
         correctCode,
+        afterSubmit,
     ]);
 
     const isFormValid = !!(
