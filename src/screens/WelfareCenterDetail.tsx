@@ -12,7 +12,11 @@ const WelfareCenterDetail = ({ route, navigation }: any): React.JSX.Element => {
     distance: 80,
   };
 
-
+  const handleCall = () => {
+    if (phone) {
+      Linking.openURL(`tel:${phone}`);
+    }
+  };
 
   return (
     <View className="flex-1 bg-white">
@@ -39,7 +43,7 @@ const WelfareCenterDetail = ({ route, navigation }: any): React.JSX.Element => {
       </View>
 
       {/* 구분선 */}
-      <View className="border-b border-gray10 mx-4" mb-1 />
+      <View className="border-b border-gray10 mx-4 mb-1 " />
 
       {/* 복지관 정보 */}
       <View className="px-4 py-4">
@@ -67,7 +71,7 @@ const WelfareCenterDetail = ({ route, navigation }: any): React.JSX.Element => {
 
       <TouchableOpacity 
         className="w-full max-w-[345px] mx-auto h-[58px] bg-main900 rounded-[8px] mt-6 flex items-center justify-center px-12 py-[16px]" 
-     
+        onPress={handleCall} 
       >
         <Text className="text-white text-center text-lg font-semibold">전화걸기</Text>
       </TouchableOpacity>

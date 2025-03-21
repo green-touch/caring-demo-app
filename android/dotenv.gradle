@@ -1,0 +1,10 @@
+def dotenvFile = rootProject.file('.env')
+
+if (dotenvFile.exists()) {
+    dotenvFile.eachLine { line ->
+        if (line && line.contains('=')) {
+            def (key, value) = line.split('=', 2)
+            project.ext.set(key.trim(), value.trim())
+        }
+    }
+}

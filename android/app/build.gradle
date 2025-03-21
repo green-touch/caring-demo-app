@@ -1,3 +1,4 @@
+apply from: "$rootDir/dotenv.gradle"
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
@@ -84,7 +85,10 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-         missingDimensionStrategy 'react-native-camera', 'general' // (카메라와 관련된 오류 방지)
+        missingDimensionStrategy 'react-native-camera', 'general' // (카메라와 관련된 오류 방지)
+       manifestPlaceholders = [
+        GOOGLE_MAPS_API_KEY: project.ext.has("GOOGLE_MAPS_API_KEY") ? project.ext.get("GOOGLE_MAPS_API_KEY") : ""
+    ]
     }
     signingConfigs {
         debug {
