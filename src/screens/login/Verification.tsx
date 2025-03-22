@@ -1,6 +1,5 @@
 import React from 'react';
 import { SafeAreaView, Text, View, TouchableOpacity, Alert, ScrollView } from 'react-native';
-import { useNavigation, NavigationProp, useRoute, RouteProp } from '@react-navigation/native';
 
 
 import NavigationHeader from '@_components/common/NavigationHeader';
@@ -9,10 +8,7 @@ import LoginButton from '@_components/login/LoginButton';
 import LoginHelp from '@_components/login/LoginHelp';
 
 import { useVerificationForm, Gender, TelecomItem } from '@_hooks/login/useVerificationForm';
-import { AuthStackParamList } from '@_types/authStack';
-
-
-type FindIdRouteProp = RouteProp<AuthStackParamList, "FindInfo">;
+import useLoginNavigation from '@_hooks/login/useLoginNavigation';
 
 const formDataGenders: Gender[] = ['남자', '여자'];
 const formDataTelecom: TelecomItem[] = [
@@ -23,9 +19,8 @@ const formDataTelecom: TelecomItem[] = [
 ];
 
 export default function Verification() {
-    const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
-    const route = useRoute<FindIdRouteProp>();
-    const { mode } = route.params;
+
+    const { navigation, mode } = useLoginNavigation();
 
     const {
         genders,
@@ -52,7 +47,7 @@ export default function Verification() {
         genders: formDataGenders,
         telecoms: formDataTelecom,
         correctCode: '123456',
-        afterSubmit: () => navigation.navigate('HelpResult', { mode })
+        afterSubmit: () => mode == 'id' ? navigation.navigate('HelpResult', { mode }) : navigation.navigate('ResetPassword', { mode }),
     });
 
     const isSelected = (itemTitle: string) => {
@@ -163,7 +158,7 @@ export default function Verification() {
                         style={{ flex: 1 }}
                     />
                     <TouchableOpacity
-                        className="border-gray90 border-[1px] px-4 py-2 ml-2 h-[50px] rounded-lg items-center justify-center"
+                        className={`border-gray90 border-[1px] px-4 py-2 ml-2 h-[50px] rounded-lg items-center justify-center ${phoneNumberError ? 'mb-7' : ''}`}
                         onPress={onPressSendCode}
                     >
                         <Text className="text-gray90 text-lg">인증번호 받기</Text>
@@ -188,7 +183,7 @@ export default function Verification() {
                             />
 
                             {!isTimeExpired && (
-                                <Text className="absolute right-3 bottom-6 text-red-400 text-xl">
+                                <Text className="absolute right-3 top-[48px] text-red-400 text-xl">
                                     {timeString}
                                 </Text>
                             )}

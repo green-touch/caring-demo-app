@@ -1,14 +1,14 @@
-import React, { Fragment, useCallback, useReducer, useState } from 'react'
+import React, { useCallback, useReducer } from 'react'
 import { SafeAreaView, Text, View } from 'react-native'
-import NavigationHeader from '../../components/common/NavigationHeader';
-import { RouteProp, useRoute, useNavigation, NavigationProp } from '@react-navigation/native';
-import { AuthStackParamList } from '@_types/authStack';
+
+import useLoginNavigation from '@_hooks/login/useLoginNavigation';
+
 import { InfoType } from '@_types/findInfo';
+
+import NavigationHeader from '@_components/common/NavigationHeader';
 import InfoInput from '@_components/login/InfoInput';
 import LoginButton from '@_components/login/LoginButton';
 import LoginHelp from '@_components/login/LoginHelp';
-
-type FindIdRouteProp = RouteProp<AuthStackParamList, "FindInfo">;
 
 const infoTypeData: Record<InfoType, { title: string }> = {
     id: { title: "회원번호" },
@@ -50,9 +50,7 @@ const reducer = (state: State, action: Action): State => {
 
 
 const FindInfo = () => {
-    const route = useRoute<FindIdRouteProp>();
-    const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
-    const { mode } = route.params;
+    const { navigation, mode } = useLoginNavigation();
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const handleInputChange = useCallback((field: keyof Omit<State, 'errors'>, value: string) => {
