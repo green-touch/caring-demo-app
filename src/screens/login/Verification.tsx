@@ -93,7 +93,7 @@ export default function Verification() {
                             onPress={() => handleGenderSelect(g)}
                         >
                             <Text
-                                className={`text-base ${selectedGender === g ? 'text-main800' : 'text-gray-800'
+                                className={`${selectedGender === g ? 'text-base font-bold text-main800' : 'text-base text-gray-800'
                                     }`}
                             >
                                 {g}
@@ -112,7 +112,7 @@ export default function Verification() {
                                 onPress={() => handleTelecomSelect(item)}
                             >
                                 <Text
-                                    className={`flex-1 text-center text-base ${isSelected(item.title) ? 'text-main800' : 'text-gray-800'
+                                    className={`flex-1 text-center text-base ${isSelected(item.title) ? 'font-bold text-main800' : 'text-gray-800'
                                         }`}
                                 >
                                     {item.title === '알뜰폰' && selectedTelecom?.startsWith('알뜰폰(')
