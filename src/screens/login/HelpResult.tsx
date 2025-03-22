@@ -1,13 +1,20 @@
 import React from 'react'
-import { SafeAreaView, View, Text } from 'react-native'
+import { SafeAreaView, View, Text, TouchableOpacity, Alert } from 'react-native'
 import { InfoType } from '@_types/findInfo';
+import Clipboard from '@react-native-clipboard/clipboard';
 
 import NavigationHeader from '@_components/common/NavigationHeader'
 import SvgIcon from '@_components/SvgIcon';
 import LoginButton from '@_components/login/LoginButton';
 import useLoginNavigation from '@_hooks/login/useLoginNavigation';
 
-const resultConfig: Record<InfoType, any> = {
+interface ResultConfigItem {
+    title: string;
+    subTitle: string[];
+    resultDetail: string[];
+}
+
+const resultConfig: Record<InfoType, ResultConfigItem> = {
     'id': {
         title: '회원번호 찾기',
         subTitle: ['회원번호 찾기가', '완료되었습니다.'],
@@ -38,13 +45,23 @@ const HelpResult = () => {
                     {mode === 'id' && <Text className='text-main600 text-2xl font-bold'>{샘플회원번호}</Text>}
                     {
                         mode === 'id' &&
-                        <View className='flex flex-row items-center justify-center mt-6 border-t-[1px] py-6 border-gray30 gap-1'>
+                        <TouchableOpacity
+                            className='flex flex-row items-center justify-center mt-6 border-t-[1px] py-6 border-gray30 gap-1'
+                            onPress={() => {
+                                Clipboard.setString(샘플회원번호);
+                                Alert.alert('알림', '회원번호가 클립보드에 복사되었습니다.');
+                            }}>
                             <SvgIcon name='Copy' />
                             <Text className='text-base text-gray70 text-bold'>회원번호 복사하기</Text>
-                        </View>
+                        </TouchableOpacity>
                     }
                 </View>
-                <LoginButton buttonTitle='로그인 하러가기' onPress={() => navigation.navigate('LoginMain')} />
+                <LoginButton buttonTitle='로그인 하러가기' onPress={() => {
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'LoginMain' }],
+                    });
+                }} />
             </View>
         </SafeAreaView>
     )

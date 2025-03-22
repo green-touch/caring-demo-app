@@ -74,6 +74,9 @@ const FindInfo = () => {
         if (!state.birth.trim()) {
             dispatch({ type: 'SET_ERROR', field: 'birth', value: '생년월일을 입력해주세요.' });
             hasError = true;
+        } else if (!/^\d{4}\.\d{2}\.\d{2}$/.test(state.birth.trim())) {
+            dispatch({ type: 'SET_ERROR', field: 'birth', value: '올바른 생년월일 형식(YYYY.MM.DD)으로 입력해주세요.' });
+            hasError = true;
         } else {
             dispatch({ type: 'SET_ERROR', field: 'birth', value: undefined });
         }
@@ -123,7 +126,7 @@ const FindInfo = () => {
                     error={state.errors.birth}
                 />
                 <View className="h-8" />
-                <LoginButton buttonTitle="다음" disabled={!(!state.name.trim() || !state.birth.trim() || (mode === 'password' && !state.membershipNumber.trim()))} onPress={handleNext} />
+                <LoginButton buttonTitle="다음" disabled={!(state.name.trim() === '' || state.birth.trim() === '' || (mode === 'password' && state.membershipNumber.trim() === ''))} onPress={handleNext} />
                 <LoginHelp />
             </View>
         </SafeAreaView>

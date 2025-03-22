@@ -34,11 +34,7 @@ function formatPhoneNumberAndValidate(rawValue: string): {
 
     let isError = false;
     let errorMessage = '';
-    if (digits.length >= 3 && digits.slice(0, 3) !== '010') {
-        isError = true;
-        errorMessage = '올바른 전화번호 형식을 입력해주세요.';
-    }
-    if (digits.length > 0 && digits.length < 11) {
+    if ((digits.length >= 3 && digits.slice(0, 3) !== '010') || (digits.length > 0 && digits.length < 11)) {
         isError = true;
         errorMessage = '올바른 전화번호 형식을 입력해주세요.';
     }

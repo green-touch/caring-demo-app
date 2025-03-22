@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from 'react'
+import React from 'react'
 import { SafeAreaView } from 'react-native'
 import { LoginScreenProps } from '@_types/bottomBar'
 
@@ -21,6 +21,9 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
     const { isError, handleMockError } = useMockError();
 
     const handleLoginPress = () => {
+        if (!회원번호.trim() || !비밀번호.trim()) {
+            return;
+        }
         if (handleMockError()) {
             return;
         }

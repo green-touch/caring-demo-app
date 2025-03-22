@@ -1,6 +1,7 @@
-import PlatformSpecificButton from '@_components/PlatformSpecificButton'
 import React from 'react'
 import { View, Text } from 'react-native'
+
+import PlatformSpecificButton from '@_components/PlatformSpecificButton'
 
 type LoginButtonProps = {
     buttonTitle: string;

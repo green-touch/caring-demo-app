@@ -11,8 +11,6 @@ import { SampleHomeScreenProps } from '@_types/bottomBar';
 import { useUserStateStore, UserState } from '@_store/userStateStore';
 import { NativeModules, NativeEventEmitter } from 'react-native';
 
-
-
 const { ForegroundServiceModule } = NativeModules;
 
 function SampleHomeScreen({ navigation }: SampleHomeScreenProps): React.JSX.Element {

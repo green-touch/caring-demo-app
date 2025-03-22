@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import SvgIcon from '@_components/SvgIcon'
 import { useNavigation, NavigationProp } from '@react-navigation/native'
 import { AuthStackParamList } from '@_types/authStack';
-import { InfoType } from '../../types/findInfo';
 
 const LoginOptions = () => {
 

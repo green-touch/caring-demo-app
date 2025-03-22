@@ -1,11 +1,13 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { TouchableOpacity } from 'react-native';
+
 import tw from 'tailwind-react-native-classnames';
 
 import SvgIcon from '@_components/SvgIcon';
-import SampleHomeScreen from './SampleHomeScreen';
-import MyInfoScreen from './MyInfoScreen';
-import { TouchableOpacity } from 'react-native';
+
+import SampleHomeScreen from '@_screens/SampleHomeScreen';
+import MyInfoScreen from '@_screens/MyInfoScreen';
 
 const Tab = createBottomTabNavigator();
 

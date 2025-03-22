@@ -1,7 +1,7 @@
 import { useState, useCallback, useMemo } from 'react';
 import useLoginNavigation from '@_hooks/login/useLoginNavigation';
 
-const validRegex = /^[A-Za-z0-9]+$/;
+const validRegex = /^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+$/;
 
 export function useResetPassword() {
 

@@ -1,4 +1,4 @@
-import { use, useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 export const useLoginInput = () => {
     const [회원번호, set회원번호] = useState<string>('');

@@ -1,5 +1,4 @@
 import { InfoType } from "./findInfo";
-import ResetPassword from '../screens/login/ResetPassword';
 
 export type AuthStackParamList = {
   LoginMain: undefined;
@@ -13,6 +12,6 @@ export type AuthStackParamList = {
     mode : InfoType;
   }
   ResetPassword: {
-    mode : Omit<'id',InfoType>;
+    mode : Extract<InfoType, 'password'>;
   }
 };

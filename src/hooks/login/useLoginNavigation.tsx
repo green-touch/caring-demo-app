@@ -1,13 +1,15 @@
 import { AuthStackParamList } from '@_types/authStack';
 import { NavigationProp, useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 
-type FindIdRouteProp = RouteProp<AuthStackParamList, "FindInfo">;
+type FindInfoRouteProp = RouteProp<AuthStackParamList, "FindInfo">;
 
 const useLoginNavigation = () => {
 
     const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
-    const route = useRoute<FindIdRouteProp>();
-    const { mode } = route.params;
+    const route = useRoute<FindInfoRouteProp>();
+    const { mode: rawMode = 'id' } = route.params || {};
+
+    const mode = rawMode === 'id' || rawMode === 'password' ? rawMode : 'id';
 
     const isId = mode === 'id';
 
