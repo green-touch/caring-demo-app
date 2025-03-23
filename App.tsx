@@ -7,6 +7,8 @@ import HomeScreen from '@_screens/HomeScreen';
 import TestScreen from '@_screens/TestScreen';
 import SampleHomeScreen from '@_screens/SampleHomeScreen';
 import MyInfoScreen from '@_screens/MyInfoScreen';
+import WelfareCenterScreen from '@_screens/Find_Welfare_Center';
+import WelfareCenterDetail from '@_screens/WelfareCenterDetail';
 import LoginMain from '@_screens/login/LoginMain';
 import FindInfo from '@_screens/login/FindInfo';
 import Verification from '@_screens/login/Verification';
@@ -27,6 +29,7 @@ const AuthStackNavigator = () => (
   </AuthStack.Navigator>
 );
 
+
 function App(): React.JSX.Element {
   return (
     <NavigationContainer>
@@ -36,6 +39,8 @@ function App(): React.JSX.Element {
         <Stack.Screen name="Test" component={TestScreen} />
         <Stack.Screen name="SampleHome" component={SampleHomeScreen} />
         <Stack.Screen name="MyInfo" component={MyInfoScreen} />
+        <Stack.Screen name="Find" component={WelfareCenterScreen} />
+        <Stack.Screen name="Detail" component={WelfareCenterDetail} />
         <Stack.Screen name="Login" component={AuthStackNavigator} />
       </Stack.Navigator>
     </NavigationContainer>

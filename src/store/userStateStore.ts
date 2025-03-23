@@ -29,8 +29,8 @@ interface UserStateStore {
   screenOffDuration: number; // 화면 꺼짐 지속 시간
   userState: UserState; // 사용자 상태
   code: string | null; // 상태 코드
-  lastUpdated : string;
-
+  lastUpdated : string; //마지막 업데이트 상태 
+  gpsEnabled : boolean; // GPS 활성화여부
   // 상태 변경 메서드
   setBatteryStatus: (level: number, isCharging: boolean) => void;
   setScreenStatus: (status: ScreenStatus) => void;
@@ -38,6 +38,7 @@ interface UserStateStore {
   setScreenOffDuration: (duration: number) => void;
   setUserState: (state: UserState, code: string | null) => void;
   setLastUpdated: ()=> void;
+  setGpsEnabled: (enabled: boolean) => void; 
 }
 
 const getFormattedTime = () => {
@@ -59,6 +60,7 @@ export const useUserStateStore = create<UserStateStore>((set) => ({
   userState: UserState.NORMAL,
   code: null,
   lastUpdated : new Date().toLocaleTimeString(),
+  gpsEnabled: false, // 초기값은 GPS 비활성화 상태
   
   setLastUpdated: () =>
     set((prev) => {
@@ -116,4 +118,13 @@ export const useUserStateStore = create<UserStateStore>((set) => ({
         lastUpdated: getFormattedTime(),
       };
     }),
+ // GPS 
+ setGpsEnabled: (enabled) =>
+  set((prev) => {
+    if (prev.gpsEnabled === enabled) return prev;
+    return {
+      gpsEnabled: enabled,
+      lastUpdated: getFormattedTime(),
+    };
+  }),
 }));

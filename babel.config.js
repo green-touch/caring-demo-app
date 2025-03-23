@@ -4,6 +4,7 @@ module.exports = {
     '@babel/preset-react',
     '@babel/preset-typescript',
     'nativewind/babel',
+    
   ],
   plugins: [
     ['react-native-reanimated/plugin'],
@@ -35,6 +36,13 @@ module.exports = {
           '@_utils': './src/utils',
           '@_store': './src/store',
         },
+      },
+    ],
+    [
+      'module:react-native-dotenv', 
+      {
+        moduleName: '@env',
+        path: '.env',
       },
     ],
   ],

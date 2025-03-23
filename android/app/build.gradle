@@ -1,3 +1,4 @@
+apply from: "$rootDir/dotenv.gradle"
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
@@ -76,7 +77,7 @@ android {
     ndkVersion rootProject.ext.ndkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
-
+    
     namespace "com.greentouch_demo_app"
     defaultConfig {
         applicationId "com.greentouch_demo_app"
@@ -84,6 +85,10 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        missingDimensionStrategy 'react-native-camera', 'general' // (카메라와 관련된 오류 방지)
+       manifestPlaceholders = [
+        GOOGLE_MAPS_API_KEY: project.ext.has("GOOGLE_MAPS_API_KEY") ? project.ext.get("GOOGLE_MAPS_API_KEY") : ""
+    ]
     }
     signingConfigs {
         debug {
@@ -105,6 +110,7 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+   
 }
 
 dependencies {
@@ -119,4 +125,5 @@ dependencies {
 
     //kotlin 표준라이브러리 추가
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.21")
+     implementation 'com.google.android.gms:play-services-location:21.0.1'
 }
