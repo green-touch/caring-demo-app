@@ -31,7 +31,7 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
     };
 
     return (
-        <SafeAreaView className="flex flex-1 w-full px-8 bg-gray1 items-center justify-start">
+        <SafeAreaView className="flex flex-1 w-full px-8 bg-white items-center justify-start">
             <LoginTitle />
             <LoginInput placeholder='회원번호' value={회원번호} handleInput={handle회원번호} />
             <LoginInput placeholder='비밀번호' value={비밀번호} handleInput={handle비밀번호} secureTextEntry={true} />
