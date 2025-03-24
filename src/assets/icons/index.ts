@@ -95,3 +95,17 @@ export { default as Search } from './ic_search.svg';
 // wifi icon
 export { default as Wifi } from './ic_wifi.svg';
 export { default as WifiOffAlert } from './ic_wifi_off_alert.svg';
+
+//View Help icon
+export {default as BatteryGreen} from'./ic_battery_75_green.svg';
+export {default as GlobeGreen} from'./ic_globe_green.svg';
+export {default as GlobeRed} from'./ic_globe_red.svg';
+export {default as GlobeYellow} from'./ic_globe_yellow.svg';
+
+export {default as SOS} from'./ic_sos.svg';
+
+export {default as Supervisor1} from'./ic_supervisor_01.svg';
+export {default as Supervisor2} from'./ic_supervisor_02.svg';
+
+
+export {default as LogoSymbol} from'./ic_logo_symbol.svg';
