@@ -14,7 +14,7 @@ import FindInfo from '@_screens/login/FindInfo';
 import Verification from '@_screens/login/Verification';
 import ResetPassword from '@_screens/login/ResetPassword';
 import HelpResult from '@_screens/login/HelpResult';
-
+import Helpview_Screen from '@_screens/HelpView_Screen';
 
 const Stack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
@@ -26,6 +26,7 @@ const AuthStackNavigator = () => (
     <AuthStack.Screen name="Verification" component={Verification} />
     <AuthStack.Screen name="ResetPassword" component={ResetPassword} />
     <AuthStack.Screen name="HelpResult" component={HelpResult} />
+    <AuthStack.Screen name="HelpView" component={Helpview_Screen}/>
   </AuthStack.Navigator>
 );
 
@@ -42,6 +43,7 @@ function App(): React.JSX.Element {
         <Stack.Screen name="Find" component={WelfareCenterScreen} />
         <Stack.Screen name="Detail" component={WelfareCenterDetail} />
         <Stack.Screen name="Login" component={AuthStackNavigator} />
+        <Stack.Screen name="Help" component={Helpview_Screen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

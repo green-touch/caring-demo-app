@@ -108,4 +108,4 @@ export {default as Supervisor1} from'./ic_supervisor_01.svg';
 export {default as Supervisor2} from'./ic_supervisor_02.svg';
 
 
-export {default as LogoSymbol} from'./ic_logo_symbol.svg';
+export {default as LogoSymbol} from'./logo_symbol.svg';
