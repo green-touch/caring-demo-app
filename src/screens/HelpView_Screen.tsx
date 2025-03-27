@@ -10,12 +10,12 @@ const Helpview_Screen = () => {
     {
       title: '안전한 상태, 경고 상태,\n위험 상태가 무엇인가요?',
       bg: 'bg-main50',
-      screen:'HelpView_1'
+      screen:'HelpView1'
     },
     {
       title: 'SOS 구조 요청 버튼을 누르면 \n 어떻게 되나요?',
       bg: 'bg-[#FFF5EA]',
-      screen:'HelpView_2'
+      screen:'HelpView2'
     },
   ];
 
@@ -23,12 +23,12 @@ const Helpview_Screen = () => {
     {
       title: '개인정보를 어떻게 바꾸나요?',
       bg: 'bg-yellow-100',
-      screen:'HelpView_3'
+      screen:'HelpView3'
     },
     {
       title: '앱 사용을 중지하고 싶어요!',
       bg: 'bg-red-100',
-      screen:'HelpView_4'
+      screen:'HelpView4'
     },
   ];
 
@@ -36,7 +36,7 @@ const Helpview_Screen = () => {
     <TouchableOpacity
       key={index}
       className={`w-[328px] rounded-[8px] px-4 pt-8 pb-8 flex-row items-center justify-between ${item.bg}`}
-      onPress={() => {
+      onPress={() => { navigation.navigate(item.screen);
         // TODO: 각 항목별 navigation 연결
       }}
     >
