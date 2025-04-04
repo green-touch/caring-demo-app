@@ -87,6 +87,9 @@ module.exports = {
         blue200: '#97AEFE',
         blue100: '#B9C8FE',
         blue50: '#E8EDFF',
+
+        point50: '#FFF5EA',
+        
       },
     },
   },
