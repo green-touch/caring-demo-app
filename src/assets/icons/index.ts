@@ -109,3 +109,5 @@ export {default as Supervisor2} from'./ic_supervisor_02.svg';
 
 
 export {default as LogoSymbol} from'./logo_symbol.svg';
+export {default as Arrow} from "./arrow_bottom.svg";
+export {default as Menu} from "./ic_menu.svg";
