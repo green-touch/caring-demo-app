@@ -13,6 +13,7 @@ import LoginOptions from '@_components/login/LoginOptions';
 import LoginHelp from '@_components/login/LoginHelp';
 import { useLoginInput } from '@_hooks/login/useLoginInput';
 import { useMockError } from '@_hooks/login/useMockError';
+import { CommonActions } from '@react-navigation/native';
 
 const LoginScreen = ({ navigation }: LoginScreenProps) => {
 
@@ -27,9 +28,14 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
         if (handleMockError()) {
             return;
         }
-        navigation.navigate("SampleHome");
-    };
-
+        navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [{ name: 'Main' }],
+            })
+          );
+        };
+        
     return (
         <SafeAreaView className="flex flex-1 w-full px-8 bg-white items-center justify-start">
             <LoginTitle />

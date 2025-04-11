@@ -9,9 +9,14 @@ import SvgIcon from '@_components/SvgIcon';
 import SampleHomeScreen from '@_screens/SampleHomeScreen';
 import MyInfoScreen from '@_screens/MyInfoScreen';
 
-const Tab = createBottomTabNavigator();
+import { useNavigation } from '@react-navigation/native';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { MainTabParamList } from '@_types/main';
 
-function MainScreen({ navigation }: any): React.JSX.Element {
+
+const Tab = createBottomTabNavigator<MainTabParamList>();
+
+function MainScreen(): React.JSX.Element {
   return (
     <Tab.Navigator initialRouteName="홈">
       <Tab.Screen
@@ -37,11 +42,15 @@ function MainScreen({ navigation }: any): React.JSX.Element {
           headerTitleStyle: tw`text-lg`,
           headerTitleAlign: 'center',
           headerStyle: tw`h-14 border-b border-[#E4E4E4]`,
-          headerLeft: () => (
-            <TouchableOpacity onPress={() => navigation.goBack()} className="ml-2">
-              <SvgIcon name="Back" size={32} />
-            </TouchableOpacity>
-          ),
+        
+          headerLeft: () => {
+            const tabNavigation = useNavigation<BottomTabNavigationProp<MainTabParamList>>();
+            return (
+              <TouchableOpacity onPress={() => tabNavigation.navigate('홈')} className="ml-2">
+                <SvgIcon name="Back" size={32} />
+              </TouchableOpacity>
+            );
+          },
           tabBarIcon: ({ focused }) => (
             <SvgIcon name={focused ? 'AccountActive' : 'AccountDisabled'} size={32} />
           ),

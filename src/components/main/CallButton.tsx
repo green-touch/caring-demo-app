@@ -1,11 +1,14 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text ,Linking} from 'react-native';
 
 import PlatformSpecificButton from '@_components/PlatformSpecificButton';
 
 function CallButton(): React.JSX.Element {
   const handlePress = () => {
-    console.log('담당 복지관에 대해 전화 걸기');
+    const phoneNumber = '01012345678';
+    Linking.openURL(`tel:${phoneNumber}`).catch((err) => {
+      console.error('전화 연결 실패:', err);
+    });
   };
 
   return (
