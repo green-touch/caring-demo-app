@@ -29,6 +29,7 @@ const WelfareCenterDetail = ({ route, navigation }: any): React.JSX.Element => {
         <View className="w-6" />
       </View>
 
+
  
       <View className="w-full h-[260px] mx-auto overflow-hidden">
         <Image

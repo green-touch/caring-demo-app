@@ -3,7 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import SvgIcon from '@_components/SvgIcon';
 import { useNavigation } from '@react-navigation/native';
 import CommonHeader from '@_components/helpview/header';
-const HelpView4 = () => {
+const HelpUsageStopGuide = () => {
   const navigation = useNavigation();
 
   return (
@@ -60,4 +60,4 @@ const HelpView4 = () => {
   );
 };
 
-export default HelpView4;
+export default HelpUsageStopGuide;

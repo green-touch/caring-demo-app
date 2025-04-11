@@ -7,7 +7,7 @@ import CommonHeader from '@_components/helpview/header';
 import StatusSection from '@_components/helpview/statusSection';
 import AlertBox from '@_components/helpview/AlertBox';
 
-const HelpView1 = () => {
+const HelpStatusInfo = () => {
   const navigation = useNavigation<any>();
 
   return (
@@ -106,4 +106,4 @@ const HelpView1 = () => {
   );
 };
 
-export default HelpView1;
+export default HelpStatusInfo;

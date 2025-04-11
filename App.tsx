@@ -14,13 +14,17 @@ import FindInfo from '@_screens/login/FindInfo';
 import Verification from '@_screens/login/Verification';
 import ResetPassword from '@_screens/login/ResetPassword';
 import HelpResult from '@_screens/login/HelpResult';
+
+
 import Helpview_Screen from '@_screens/helpview/HelpView_Screen';
-import HelpView1 from '@_screens/helpview/HelpView_1';
-import HelpView2 from '@_screens/helpview/HelpView_2';
-import HelpView3 from '@_screens/helpview/HelpView_3';
-import HelpView4 from '@_screens/helpview/HelpView_4';
+import HelpStatusInfo from '@_screens/helpview/HelpStatusInfo';
+import HelpSOSInfo from '@_screens/helpview/HelpSOSInfo';
+import HelpPrivacyPolicy from '@_screens/helpview/HelpPrivacyPolicy';
+import HelpUsageStopGuide from '@_screens/helpview/HelpUsageStopGuide';
+
 const Stack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
+const HelpStack =createNativeStackNavigator();
 
 const AuthStackNavigator = () => (
   <AuthStack.Navigator initialRouteName="LoginMain" screenOptions={{ headerShown: false }}>
@@ -33,6 +37,15 @@ const AuthStackNavigator = () => (
   </AuthStack.Navigator>
 );
 
+const HelpStackNavigator = () => (
+  <HelpStack.Navigator initialRouteName="Help" screenOptions={{ headerShown: false }}>
+    <HelpStack.Screen name="Help" component={Helpview_Screen} />
+    <HelpStack.Screen name="HelpStatusInfo" component={HelpStatusInfo} />
+    <HelpStack.Screen name="HelpSOSInfo" component={HelpSOSInfo} />
+    <HelpStack.Screen name="HelpPrivacyPolicy" component={HelpPrivacyPolicy} />
+    <HelpStack.Screen name="HelpUsageStopGuide" component={HelpUsageStopGuide} />
+  </HelpStack.Navigator>
+);
 
 function App(): React.JSX.Element {
   return (
@@ -46,11 +59,7 @@ function App(): React.JSX.Element {
         <Stack.Screen name="Find" component={WelfareCenterScreen} />
         <Stack.Screen name="Detail" component={WelfareCenterDetail} />
         <Stack.Screen name="Login" component={AuthStackNavigator} />
-        <Stack.Screen name="Help" component={Helpview_Screen}/>
-        <Stack.Screen name="HelpView1" component={HelpView1}/>
-        <Stack.Screen name="HelpView2" component={HelpView2}/>
-        <Stack.Screen name="HelpView3" component={HelpView3}/>
-        <Stack.Screen name="HelpView4" component={HelpView4}/>
+        <Stack.Screen name="HelpStack" component={HelpStackNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
   );
