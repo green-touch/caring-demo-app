@@ -75,7 +75,7 @@ function MyInfoScreen({ navigation }: MyInfoScreenProps): React.JSX.Element {
             ))}
           </View>
         </WhiteBox>
-        <PlatformSpecificButton onPress={() => console.log('로그아웃하기')}>
+        <PlatformSpecificButton onPress={() => navigation.getParent()?.navigate('Login')}>
           <View className="w-20 mb-4 justify-center items-center mx-auto">
             <Text className="text-sm text-gray50 text-center">로그아웃하기</Text>
           </View>

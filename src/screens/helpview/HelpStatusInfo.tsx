@@ -3,8 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import SvgIcon from "@_components/SvgIcon";
 import { useNavigation } from '@react-navigation/native';
 import CommonHeader from '@_components/helpview/header';
-
-import StatusSection from '@_components/helpview/statusSection';
+import StatusSection from '@_components/helpview/StatusSection';
 import AlertBox from '@_components/helpview/AlertBox';
 
 const HelpStatusInfo = () => {
@@ -92,7 +91,7 @@ const HelpStatusInfo = () => {
           </Text>
           <TouchableOpacity
             className="w-[328px] mb-15 rounded-[8px] px-4 pt-6 pb-6 flex-row items-center justify-between bg-[#FFF5EA]"
-            onPress={() => navigation.navigate("HelpView2")}
+            onPress={() => navigation.navigate("HelpSOSInfo")}
           >
             <Text className="text-[19px] leading-[28.5px] font-bold text-gray90 w-[85%]">
               SOS 구조 요청 버튼을 누르면 {"\n"}어떻게 되나요?
@@ -100,6 +99,7 @@ const HelpStatusInfo = () => {
             <SvgIcon name="ChevronRightBlack" size={24} />
           </TouchableOpacity>
         </View>
+        <View className="h-20" />
       </ScrollView>
     </View>
   );

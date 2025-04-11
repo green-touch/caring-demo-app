@@ -3,7 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import SvgIcon from '@_components/SvgIcon';
 import { useNavigation } from '@react-navigation/native';
 import CommonHeader from '@_components/helpview/header';
-const HelpView3 = () => {
+const HelpPrivacyPolicy = () => {
   const navigation = useNavigation<any>();
 
   return (
@@ -71,4 +71,4 @@ const HelpView3 = () => {
   );
 };
 
-export default HelpView3;
+export default HelpPrivacyPolicy;
