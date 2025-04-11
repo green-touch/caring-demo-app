@@ -86,7 +86,6 @@ const HelpStatusInfo = () => {
           ]}
         />
 
-        {/* SOS 구조 요청 안내 */}
         <View className="w-[328px] space-y-4 mt-10">
           <Text className="text-[24px] mb-4 leading-[36px] font-bold text-[#1A1A1A]">
             SOS 구조 요청 안내

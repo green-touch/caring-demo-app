@@ -6,10 +6,10 @@ import CommonHeader from '@_components/helpview/header';
 import { IconName } from '@_types/icon';
 
 interface Item {
-  icon: IconName; // <- string 말고 IconName
+  icon: IconName; 
   text: string;
 }
-const HelpView2 = () => {
+const HelpSOSInfo = () => {
   const navigation = useNavigation();
 
   return (
@@ -38,7 +38,7 @@ const HelpView2 = () => {
           <SvgIcon name="Arrow" size={56} color="#8E8E8E" style={{ marginTop: -1 }} />
         </View>
 
-        <Text className="text-[21px] mt-6 mb-4 font-bold leading-[31.5px] text-center text-gray90]">
+        <Text className="text-[21px] mt-6 mb-4 font-bold leading-[31.5px] text-center text-gray90">
           119, 복지관 담당자와 비상 연락망에{"\n"}SOS 문자 메시지를 전송해요
         </Text>
 
@@ -101,4 +101,4 @@ const HelpView2 = () => {
   );
 };
 
-export default HelpView2;
+export default HelpSOSInfo;
